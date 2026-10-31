@@ -159,8 +159,11 @@ Al arrancar:
 2. Hibernate crea/actualiza tablas (`ddl-auto=update`).
 3. `DataInitializer` inserta admin, cursos, retos, posts, logros y coins de ejemplo.
 
-API: **http://localhost:8080**  
-H2 Console: **http://localhost:8080/h2-console**
+- Aplicación web: **http://localhost:8080/**
+- API: **http://localhost:8080/api**
+- H2 Console: **http://localhost:8080/h2-console**
+
+La interfaz está incluida en `backend/src/main/resources/static` y Spring Boot la sirve junto con la API. Abre la aplicación desde `http://localhost:8080/` (no desde el archivo `index.html`) para que las solicitudes del frontend lleguen al mismo servidor y origen.
 
 Para empaquetar JAR:
 

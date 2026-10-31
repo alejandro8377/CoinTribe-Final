@@ -5,6 +5,24 @@
 
 const API_BASE = window.location.origin + '/api';
 
+async function apiFetch(url, options) {
+  let response;
+  try {
+    response = await fetch(url, options);
+  } catch (error) {
+    throw new Error('No fue posible conectar con el backend. Verifica que el servidor esté activo.');
+  }
+  if (!response.ok) {
+    let message = `Error del servidor (${response.status}).`;
+    if (response.headers.get('content-type')?.includes('application/json')) {
+      const body = await response.json();
+      if (body.error) message = body.error;
+    }
+    throw new Error(message);
+  }
+  return response;
+}
+
 // State
 let state = {
   currentUser: null,
@@ -121,7 +139,7 @@ async function submitLogin(event) {
   const password = document.getElementById('login-password').value;
 
   try {
-    const res = await fetch(`${API_BASE}/users/login`, {
+    const res = await apiFetch(`${API_BASE}/users/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
@@ -138,12 +156,9 @@ async function submitLogin(event) {
       closeAllModals();
       showToast(`¡Bienvenido de nuevo, ${user.nombre}! 🚀`);
       switchMainTab('dashboard');
-    } else {
-      const err = await res.json().catch(() => ({}));
-      showToast(err.error || 'Credenciales incorrectas. Verifica tu correo y contraseña.', 'error');
     }
   } catch (e) {
-    showToast('Error de conexión al iniciar sesión', 'error');
+    showToast(e.message || 'Error de conexión al iniciar sesión', 'error');
   }
 }
 
@@ -154,7 +169,7 @@ async function submitRegister(event) {
   const password = document.getElementById('register-password').value;
 
   try {
-    const res = await fetch(`${API_BASE}/users/register`, {
+    const res = await apiFetch(`${API_BASE}/users/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nombre, email, password })
@@ -169,12 +184,9 @@ async function submitRegister(event) {
       closeAllModals();
       showToast(`¡Cuenta creada con éxito! Bienvenido a CoinTribe, ${user.nombre} 🎉`);
       switchMainTab('dashboard');
-    } else {
-      const err = await res.json().catch(() => ({}));
-      showToast(err.error || 'No se pudo crear la cuenta. Puede que el correo ya esté registrado.', 'error');
     }
   } catch (e) {
-    showToast('Error de conexión al registrar usuario', 'error');
+    showToast(e.message || 'Error de conexión al registrar usuario', 'error');
   }
 }
 
@@ -444,13 +456,13 @@ async function loadInitialData() {
     ]);
   } catch (err) {
     console.error('Error loading initial data:', err);
-    showToast('Error cargando datos del servidor', 'error');
+    showToast(err.message || 'Error cargando datos del servidor', 'error');
   }
 }
 
 // 1. Users & Dashboard
 async function fetchUsers() {
-  const res = await fetch(`${API_BASE}/users`);
+  const res = await apiFetch(`${API_BASE}/users`);
   state.users = await res.json();
   if (state.users.length > 0 && !state.currentUser) {
     // If no session is active, do not force login, but keep first user ready for switch
@@ -501,7 +513,7 @@ async function quickAddSavings(amount) {
     return;
   }
   try {
-    const res = await fetch(`${API_BASE}/users/${state.currentUser.id}/ahorro`, {
+    const res = await apiFetch(`${API_BASE}/users/${state.currentUser.id}/ahorro`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ monto: amount })
@@ -517,7 +529,7 @@ async function quickAddSavings(amount) {
       showToast('No se pudo registrar el ahorro', 'error');
     }
   } catch (e) {
-    showToast('Error de conexión', 'error');
+    showToast(e.message || 'Error de conexión', 'error');
   }
 }
 
@@ -552,7 +564,7 @@ async function submitUpdateGoal(event) {
   }
 
   try {
-    const res = await fetch(`${API_BASE}/users/${state.currentUser.id}/profile`, {
+    const res = await apiFetch(`${API_BASE}/users/${state.currentUser.id}/profile`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nombre: state.currentUser.nombre, meta: metaVal })
@@ -566,13 +578,13 @@ async function submitUpdateGoal(event) {
       showToast('¡Meta de ahorro actualizada! 🎯');
     }
   } catch (e) {
-    showToast('Error al actualizar meta', 'error');
+    showToast(e.message || 'Error al actualizar meta', 'error');
   }
 }
 
 // 2. Courses
 async function fetchCourses() {
-  const res = await fetch(`${API_BASE}/courses`);
+  const res = await apiFetch(`${API_BASE}/courses`);
   state.courses = await res.json();
   renderCourses();
 }
@@ -624,7 +636,7 @@ async function completeCourseLesson(courseId) {
     return;
   }
   try {
-    const res = await fetch(`${API_BASE}/courses/complete-lesson`, {
+    const res = await apiFetch(`${API_BASE}/courses/complete-lesson`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId: state.currentUser.id, lecciones: 1 })
@@ -639,7 +651,7 @@ async function completeCourseLesson(courseId) {
       const course = state.courses.find(c => c.id === courseId);
       if (course) {
         const nextProgress = Math.min(100, (course.progreso || 0) + 25);
-        await fetch(`${API_BASE}/courses/${courseId}/progress`, {
+        await apiFetch(`${API_BASE}/courses/${courseId}/progress`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ progreso: nextProgress })
@@ -650,20 +662,21 @@ async function completeCourseLesson(courseId) {
       showToast('¡Lección completada! +1 en tu progreso');
     }
   } catch (e) {
-    showToast('Error completando lección', 'error');
+    showToast(e.message || 'Error completando lección', 'error');
   }
 }
 
 // 3. Challenges
 async function fetchChallenges() {
-  const res = await fetch(`${API_BASE}/challenges`);
+  const res = await apiFetch(`${API_BASE}/challenges`);
   state.challenges = await res.json();
   renderChallenges();
+  renderUserChallenges();
 }
 
 async function fetchUserChallenges() {
   if (!state.currentUser) return;
-  const res = await fetch(`${API_BASE}/challenges/user/${state.currentUser.id}`);
+  const res = await apiFetch(`${API_BASE}/challenges/user/${state.currentUser.id}`);
   state.userChallenges = await res.json();
   renderUserChallenges();
 }
@@ -673,7 +686,7 @@ function renderChallenges() {
   dom.challengesList.innerHTML = '';
 
   state.challenges.forEach(ch => {
-    const isJoined = state.userChallenges.some(uc => uc.challenge && uc.challenge.id === ch.id);
+    const isJoined = state.userChallenges.some(uc => uc.challengeId === ch.id);
     const card = document.createElement('div');
     card.className = 'custom-card';
     card.innerHTML = `
@@ -723,7 +736,7 @@ function renderUserChallenges() {
   }
 
   state.userChallenges.forEach(uc => {
-    const ch = uc.challenge;
+    const ch = state.challenges.find(challenge => challenge.id === uc.challengeId);
     if (!ch) return;
     const progress = Math.min(100, Math.round(((uc.ahorroAcumulado || 0) / (ch.metaAhorro || 1)) * 100));
 
@@ -755,7 +768,7 @@ async function joinChallenge(challengeId) {
     return;
   }
   try {
-    const res = await fetch(`${API_BASE}/challenges/${challengeId}/join`, {
+    const res = await apiFetch(`${API_BASE}/challenges/${challengeId}/join`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId: state.currentUser.id })
@@ -768,7 +781,7 @@ async function joinChallenge(challengeId) {
       renderChallenges();
     }
   } catch (e) {
-    showToast('Error al unirse al reto', 'error');
+    showToast(e.message || 'Error al unirse al reto', 'error');
   }
 }
 
@@ -793,7 +806,7 @@ async function submitDepositChallenge(event) {
   }
 
   try {
-    const res = await fetch(`${API_BASE}/challenges/${activeChallengeDepositId}/deposit`, {
+    const res = await apiFetch(`${API_BASE}/challenges/${activeChallengeDepositId}/deposit`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId: state.currentUser.id, monto: amount })
@@ -808,13 +821,13 @@ async function submitDepositChallenge(event) {
       await fetchChallenges();
     }
   } catch (e) {
-    showToast('Error registrando depósito en reto', 'error');
+    showToast(e.message || 'Error registrando depósito en reto', 'error');
   }
 }
 
 // 4. Forum / Posts
 async function fetchPosts() {
-  const res = await fetch(`${API_BASE}/posts`);
+  const res = await apiFetch(`${API_BASE}/posts`);
   state.posts = await res.json();
   renderPosts();
 }
@@ -850,12 +863,15 @@ function renderPosts() {
 }
 
 async function likePost(postId) {
-  const userId = state.currentUser ? state.currentUser.id : 1;
+  if (!state.currentUser) {
+    handleDashboardAccess();
+    return;
+  }
   try {
-    const res = await fetch(`${API_BASE}/posts/${postId}/like`, {
+    const res = await apiFetch(`${API_BASE}/posts/${postId}/like`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userId })
+      body: JSON.stringify({ userId: state.currentUser.id })
     });
     if (res.ok) {
       const updatedPost = await res.json();
@@ -865,7 +881,7 @@ async function likePost(postId) {
       showToast('¡Le diste Me gusta! ❤️');
     }
   } catch (e) {
-    showToast('Error al dar like', 'error');
+    showToast(e.message || 'Error al dar like', 'error');
   }
 }
 
@@ -880,7 +896,7 @@ async function submitCreatePost(event) {
   const cuerpo = document.getElementById('post-cuerpo-input').value;
 
   try {
-    const res = await fetch(`${API_BASE}/posts`, {
+    const res = await apiFetch(`${API_BASE}/posts`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -899,20 +915,20 @@ async function submitCreatePost(event) {
       await fetchPosts();
     }
   } catch (e) {
-    showToast('Error al publicar', 'error');
+    showToast(e.message || 'Error al publicar', 'error');
   }
 }
 
 // 5. Achievements
 async function fetchAchievements() {
-  const res = await fetch(`${API_BASE}/achievements`);
+  const res = await apiFetch(`${API_BASE}/achievements`);
   state.achievements = await res.json();
   renderAchievements();
 }
 
 async function fetchUserAchievements() {
   if (!state.currentUser) return;
-  const res = await fetch(`${API_BASE}/achievements/user/${state.currentUser.id}`);
+  const res = await apiFetch(`${API_BASE}/achievements/user/${state.currentUser.id}`);
   state.userAchievements = await res.json();
   renderAchievements();
 }
@@ -922,7 +938,7 @@ function renderAchievements() {
   dom.achievementsList.innerHTML = '';
 
   const unlockedIds = new Set(
-    state.userAchievements.map(ua => ua.achievement ? ua.achievement.id : null)
+    state.userAchievements.map(ua => ua.achievementId)
   );
 
   state.achievements.forEach(ach => {
@@ -945,7 +961,7 @@ function renderAchievements() {
 
 // 6. Coins
 async function fetchCoins() {
-  const res = await fetch(`${API_BASE}/coins`);
+  const res = await apiFetch(`${API_BASE}/coins`);
   state.coins = await res.json();
   renderCoins();
 }
