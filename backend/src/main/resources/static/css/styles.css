@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    CoinTribe - High-End FinTech Design System with GSAP Parallax & Tab Navigation
    ========================================================================== */
 
@@ -115,9 +115,11 @@ h1, h2, h3, h4, .brand-text {
   z-index: 1000;
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
-  background: rgba(8, 12, 22, 0.82);
-  border-bottom: 1px solid var(--border-color);
-  padding: 12px 0;
+  background: rgba(6, 10, 20, 0.88);
+  border-bottom: 1px solid transparent;
+  background-clip: padding-box;
+  box-shadow: 0 1px 0 0 rgba(16, 185, 129, 0.2), 0 4px 24px rgba(0,0,0,0.5);
+  padding: 10px 0;
   transition: var(--transition);
 }
 
@@ -143,29 +145,31 @@ body.light-theme .main-header {
   cursor: pointer;
 }
 
-.brand-icon {
-  width: 44px;
-  height: 44px;
-  background: linear-gradient(135deg, var(--emerald-500), #047857);
-  border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 20px var(--emerald-glow);
-  font-size: 24px;
-  transition: transform 0.3s ease;
+.brand-logo-svg {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+  filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.5));
 }
 
-.brand-wrapper:hover .brand-icon {
-  transform: rotate(10deg) scale(1.05);
+.brand-logo-svg svg {
+  display: block;
+}
+
+.brand-wrapper:hover .brand-logo-svg {
+  transform: rotate(-6deg) scale(1.1);
+  filter: drop-shadow(0 0 16px rgba(16, 185, 129, 0.75)) drop-shadow(0 0 6px rgba(251, 191, 36, 0.4));
 }
 
 .brand-info h1 {
-  font-size: 1.45rem;
+  font-size: 1.5rem;
   line-height: 1.1;
-  background: linear-gradient(135deg, #ffffff 40%, var(--emerald-400));
+  letter-spacing: -0.03em;
+  background: linear-gradient(120deg, #ffffff 30%, var(--emerald-400) 65%, var(--gold-400) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 body.light-theme .brand-info h1 {
@@ -1293,4 +1297,1401 @@ body.light-theme .brand-info h1 {
   .expand-image-container { width: 96%; }
   .floating-badge { display: none; }
   .dashboard-hero-card { padding: 24px; }
+}
+/* ==========================================================================
+   Nav Icon Animations & SVG Logo Polish
+   ========================================================================== */
+
+/* --- Logo: continuous float + pulse glow --- */
+@keyframes logoPulse {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(16,185,129,0.6)); }
+  50%       { filter: drop-shadow(0 0 22px rgba(16,185,129,0.95)) drop-shadow(0 0 10px rgba(251,191,36,0.5)); }
+}
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-3.5px) rotate(1deg); }
+}
+
+.brand-logo-svg {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  animation: logoPulse 3.5s ease-in-out infinite, logoFloat 5s ease-in-out infinite;
+  cursor: pointer;
+  will-change: transform, filter;
+}
+.brand-logo-svg svg { display: block; }
+
+.brand-wrapper:hover .brand-logo-svg {
+  animation: none;
+  transform: rotate(-7deg) scale(1.1);
+  filter: drop-shadow(0 0 28px rgba(16,185,129,1)) drop-shadow(0 0 14px rgba(251,191,36,0.6));
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), filter 0.3s ease;
+}
+
+/* --- Nav icons base --- */
+.nav-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 1;
+  will-change: transform;
+}
+
+/* --- Individual icon keyframes --- */
+@keyframes bounceIcon {
+  0%   { transform: translateY(0); }
+  30%  { transform: translateY(-7px); }
+  55%  { transform: translateY(-2px); }
+  75%  { transform: translateY(-4px); }
+  100% { transform: translateY(0); }
+}
+@keyframes spinIcon {
+  0%   { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(200deg) scale(1.15); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+@keyframes wiggleIcon {
+  0%   { transform: rotate(0deg); }
+  15%  { transform: rotate(-16deg); }
+  40%  { transform: rotate(16deg); }
+  65%  { transform: rotate(-10deg); }
+  85%  { transform: rotate(6deg); }
+  100% { transform: rotate(0deg); }
+}
+@keyframes pulseIcon {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(1.45); }
+  60%  { transform: scale(0.9); }
+  80%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+@keyframes shakeIcon {
+  0%   { transform: rotate(0deg) scale(1); }
+  15%  { transform: rotate(-18deg) scale(1.1); }
+  40%  { transform: rotate(18deg) scale(1.1); }
+  65%  { transform: rotate(-10deg) scale(1.05); }
+  85%  { transform: rotate(6deg) scale(1.02); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+@keyframes riseIcon {
+  0%   { transform: translateY(0) scale(1); }
+  40%  { transform: translateY(-8px) scale(1.15); }
+  70%  { transform: translateY(-3px) scale(1.05); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+/* --- Trigger animations on hover --- */
+.nav-btn:hover .icon-home   { animation: bounceIcon 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+.nav-btn:hover .icon-panel  { animation: spinIcon   0.6s ease forwards; }
+.nav-btn:hover .icon-book   { animation: wiggleIcon 0.5s ease forwards; }
+.nav-btn:hover .icon-target { animation: pulseIcon  0.5s ease forwards; }
+.nav-btn:hover .icon-users  { animation: bounceIcon 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+.nav-btn:hover .icon-trophy { animation: shakeIcon  0.6s ease forwards; }
+.nav-btn:hover .icon-trend  { animation: riseIcon   0.55s ease forwards; }
+
+/* Active nav button icon: persistent glow */
+.nav-btn.active .nav-icon svg {
+  filter: drop-shadow(0 0 5px rgba(255,255,255,0.65));
+}
+
+/* Theme/logout icon round buttons: scale on hover */
+.btn-icon-round svg {
+  transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+}
+.btn-icon-round:hover svg { transform: scale(1.2); }
+
+/* ==========================================================================
+   Continuous Moving Icons & FinTech Masterpiece Styling
+   ========================================================================== */
+
+/* --- Logo Core & Orbit Animations --- */
+@keyframes logoOrbit {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes logoCounterOrbit {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+@keyframes logoFloatContinuous {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+    filter: drop-shadow(0 0 14px rgba(16,185,129,0.55)) drop-shadow(0 0 25px rgba(245,158,11,0.25)); 
+  }
+  50% { 
+    transform: translateY(-4px) rotate(1.5deg); 
+    filter: drop-shadow(0 0 24px rgba(16,185,129,0.85)) drop-shadow(0 0 35px rgba(245,158,11,0.45)); 
+  }
+}
+
+@keyframes beaconPulse {
+  0%, 100% { transform: scale(1); opacity: 0.95; }
+  50%       { transform: scale(1.4); opacity: 0.35; }
+}
+
+.brand-logo-svg {
+  width: 54px;
+  height: 54px;
+  flex-shrink: 0;
+  animation: logoFloatContinuous 4.5s ease-in-out infinite;
+  cursor: pointer;
+  will-change: transform, filter;
+  position: relative;
+}
+
+.brand-logo-svg svg {
+  display: block;
+  overflow: visible;
+}
+
+.brand-logo-svg .logo-orbit-ring {
+  transform-origin: 30px 30px;
+  animation: logoOrbit 14s linear infinite;
+}
+
+.brand-logo-svg .logo-counter-ring {
+  transform-origin: 30px 30px;
+  animation: logoCounterOrbit 20s linear infinite;
+}
+
+.brand-logo-svg .logo-beacon {
+  transform-origin: 47px 13px;
+  animation: beaconPulse 2s ease-in-out infinite;
+}
+
+.brand-wrapper:hover .brand-logo-svg {
+  transform: scale(1.12) rotate(-5deg);
+  filter: drop-shadow(0 0 32px rgba(16,185,129,1)) drop-shadow(0 0 22px rgba(245,158,11,0.7));
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), filter 0.3s ease;
+}
+
+.brand-info h1 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.55rem;
+  letter-spacing: -0.035em;
+  font-weight: 900;
+  margin: 0;
+}
+
+.brand-badge-pro {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(16,185,129,0.25), rgba(245,158,11,0.25));
+  border: 1px solid rgba(16,185,129,0.5);
+  color: #34d399;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.brand-badge-pro::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 6px #10b981;
+  animation: beaconPulse 1.8s infinite;
+}
+
+/* ==========================================================================
+   Continuous Moving Animations for Nav Menu Icons
+   ========================================================================== */
+@keyframes iconWaveFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-3px) rotate(-3deg); }
+}
+
+@keyframes iconPulseSubtle {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.15); }
+}
+
+@keyframes iconRadarPing {
+  0%   { transform: scale(0.9); opacity: 0.5; }
+  50%  { transform: scale(1.18); opacity: 1; filter: drop-shadow(0 0 5px #38bdf8); }
+  100% { transform: scale(0.9); opacity: 0.5; }
+}
+
+@keyframes iconTrendAscend {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50%       { transform: translateY(-3.5px) translateX(2.5px); }
+}
+
+.nav-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 1;
+  will-change: transform;
+}
+
+/* Continuous movements on navigation */
+.icon-home   { animation: iconWaveFloat 3.6s ease-in-out infinite; }
+.icon-panel  { animation: iconPulseSubtle 3.2s ease-in-out infinite; }
+.icon-book   { animation: iconWaveFloat 4.2s ease-in-out 0.5s infinite; }
+.icon-target { animation: iconRadarPing 2.8s ease-in-out infinite; }
+.icon-users  { animation: iconWaveFloat 4.0s ease-in-out 1s infinite; }
+.icon-trophy { animation: iconPulseSubtle 3.5s ease-in-out 0.3s infinite; }
+.icon-trend  { animation: iconTrendAscend 3.0s ease-in-out infinite; }
+
+/* Interactive Hover Reactions */
+.nav-btn:hover .icon-home   { transform: scale(1.3) translateY(-4px); transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+.nav-btn:hover .icon-panel  { transform: rotate(180deg) scale(1.28); transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+.nav-btn:hover .icon-book   { transform: rotate(-18deg) scale(1.25); transition: transform 0.3s ease; }
+.nav-btn:hover .icon-target { transform: scale(1.35) rotate(45deg); transition: transform 0.3s ease; }
+.nav-btn:hover .icon-users  { transform: translateY(-5px) scale(1.3); transition: transform 0.3s ease; }
+.nav-btn:hover .icon-trophy { transform: rotate(18deg) scale(1.35); filter: drop-shadow(0 0 10px rgba(245,158,11,0.9)); transition: transform 0.3s ease; }
+.nav-btn:hover .icon-trend  { transform: translateY(-5px) scale(1.3); transition: transform 0.3s ease; }
+
+.nav-btn.active .nav-icon {
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.9));
+}
+
+/* Moving Utility Icons Across The App */
+.inline-svg {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.anim-float {
+  animation: iconWaveFloat 3.6s ease-in-out infinite;
+}
+
+.anim-pulse {
+  animation: iconPulseSubtle 2.5s ease-in-out infinite;
+}
+
+.anim-radar {
+  animation: iconRadarPing 2.4s ease-in-out infinite;
+}
+
+.anim-trend {
+  animation: iconTrendAscend 2.8s ease-in-out infinite;
+}
+
+.metric-card:hover .metric-icon svg {
+  transform: scale(1.3) rotate(8deg);
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.metric-card .metric-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border-color);
+}
+
+.card-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-tag svg {
+  width: 14px;
+  height: 14px;
+}
+
+
+
+/* ==========================================================================
+   ULTRA-CINEMATIC ENGINE: 3D HOLOGRAPHIC LOGO & LIVING NAV ICONS
+   ========================================================================== */
+
+/* --- 1. Cinematic Logo Stage --- */
+.brand-logo-cinematic {
+  width: 58px;
+  height: 58px;
+  position: relative;
+  perspective: 900px;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-gyro-stage {
+  width: 56px;
+  height: 56px;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: stageFloat 4.2s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes stageFloat {
+  0%, 100% { transform: translateY(0px) rotateZ(0deg); }
+  50%       { transform: translateY(-5px) rotateZ(2deg); }
+}
+
+/* Ambient Backglow */
+.logo-backglow {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16,185,129,0.5) 0%, rgba(245,158,11,0.2) 55%, transparent 75%);
+  filter: blur(10px);
+  animation: glowBreathe 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes glowBreathe {
+  0%, 100% { opacity: 0.6; transform: scale(0.92); }
+  50%       { opacity: 1; transform: scale(1.15); filter: blur(14px); }
+}
+
+/* 3D Gyroscope Rings */
+.gyro-ring {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.gyro-ring-1 {
+  width: 52px;
+  height: 52px;
+  border: 1.5px dashed rgba(52, 211, 153, 0.7);
+  box-shadow: 0 0 10px rgba(52, 211, 153, 0.5);
+  animation: gyroSpin1 8s linear infinite;
+}
+
+.gyro-ring-2 {
+  width: 48px;
+  height: 48px;
+  border: 1.5px solid rgba(251, 191, 36, 0.6);
+  border-left-color: transparent;
+  border-right-color: transparent;
+  box-shadow: 0 0 12px rgba(251, 191, 36, 0.4);
+  animation: gyroSpin2 12s linear infinite;
+}
+
+@keyframes gyroSpin1 {
+  0%   { transform: rotateX(68deg) rotateZ(0deg); }
+  100% { transform: rotateX(68deg) rotateZ(360deg); }
+}
+
+@keyframes gyroSpin2 {
+  0%   { transform: rotateY(68deg) rotateZ(0deg); }
+  100% { transform: rotateY(68deg) rotateZ(-360deg); }
+}
+
+/* 3D Coin Core */
+.logo-coin-3d {
+  position: relative;
+  z-index: 5;
+  transform-style: preserve-3d;
+  animation: coin3DDrift 4.8s ease-in-out infinite;
+  filter: drop-shadow(0 6px 16px rgba(0,0,0,0.6));
+}
+
+@keyframes coin3DDrift {
+  0%, 100% { 
+    transform: rotateY(0deg) rotateX(0deg); 
+  }
+  25% {
+    transform: rotateY(16deg) rotateX(-6deg);
+  }
+  75% { 
+    transform: rotateY(-16deg) rotateX(6deg); 
+  }
+}
+
+/* Orbiting Quantum Particle */
+.logo-particle-orbit {
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  animation: quantumSpin 5s linear infinite;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.quantum-particle {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 10px #34d399, 0 0 18px #10b981;
+  position: absolute;
+  top: 0;
+  left: 24px;
+  animation: particlePulse 1.8s ease-in-out infinite;
+}
+
+@keyframes quantumSpin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes particlePulse {
+  0%, 100% { transform: scale(0.9); opacity: 0.8; }
+  50%       { transform: scale(1.4); opacity: 1; filter: drop-shadow(0 0 12px #fff); }
+}
+
+/* Hover Turbo Shockwave on Logo */
+.brand-wrapper:hover .brand-logo-cinematic {
+  transform: scale(1.15);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.brand-wrapper:hover .gyro-ring-1 {
+  animation-duration: 2.5s;
+  border-color: #34d399;
+  box-shadow: 0 0 20px #34d399;
+}
+
+.brand-wrapper:hover .gyro-ring-2 {
+  animation-duration: 3.5s;
+  border-color: #fbbf24;
+  box-shadow: 0 0 25px #fbbf24;
+}
+
+.brand-wrapper:hover .logo-backglow {
+  transform: scale(1.4);
+  opacity: 1;
+  filter: blur(18px);
+}
+
+.brand-name-cinematic {
+  background: linear-gradient(135deg, #ffffff 10%, #34d399 50%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  font-size: 1.6rem;
+}
+
+.brand-badge-quantum {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(16,185,129,0.3), rgba(245,158,11,0.3));
+  border: 1px solid rgba(16,185,129,0.6);
+  color: #a7f3d0;
+  text-transform: uppercase;
+  box-shadow: 0 0 12px rgba(16,185,129,0.35);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.brand-badge-quantum::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 8px #34d399;
+  animation: particlePulse 1.5s infinite;
+}
+
+/* ==========================================================================
+   2. LIVING NAV ICONS (CINEMATIC INTERNAL COMPONENT ANIMATIONS)
+   ========================================================================== */
+.nav-icon-cine {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 1;
+  position: relative;
+  will-change: transform;
+}
+
+/* A. INICIO - Living Hearth & Floating Roof */
+.cine-home {
+  animation: homeHoverFloating 3.6s ease-in-out infinite;
+}
+@keyframes homeHoverFloating {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-3.5px); }
+}
+
+.home-hearth {
+  transform-origin: 12px 15px;
+  animation: hearthPulse 2s ease-in-out infinite;
+}
+@keyframes hearthPulse {
+  0%, 100% { transform: scale(0.85); opacity: 0.6; fill: #10b981; }
+  50%       { transform: scale(1.6); opacity: 1; fill: #34d399; filter: drop-shadow(0 0 6px #34d399); }
+}
+
+/* B. MI PANEL - Real Equalizer / Chart Wave (Bars actively dancing!) */
+.chart-bar {
+  transform-box: fill-box;
+}
+.bar-1 {
+  transform-origin: bottom center;
+  animation: barEqualizer1 1.4s ease-in-out infinite;
+}
+.bar-2 {
+  transform-origin: bottom center;
+  animation: barEqualizer2 1.1s ease-in-out 0.2s infinite;
+}
+.bar-3 {
+  transform-origin: bottom center;
+  animation: barEqualizer3 1.6s ease-in-out 0.4s infinite;
+}
+
+@keyframes barEqualizer1 {
+  0%, 100% { transform: scaleY(0.9); }
+  50%       { transform: scaleY(0.35); }
+}
+@keyframes barEqualizer2 {
+  0%, 100% { transform: scaleY(0.45); }
+  50%       { transform: scaleY(1.15); }
+}
+@keyframes barEqualizer3 {
+  0%, 100% { transform: scaleY(1); }
+  50%       { transform: scaleY(0.4); }
+}
+
+/* C. CURSOS - Living Fluttering Book & Swaying Ribbon */
+.cine-book {
+  animation: bookTilt 4s ease-in-out infinite;
+}
+@keyframes bookTilt {
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  50%       { transform: rotate(-5deg) translateY(-2.5px); }
+}
+
+.book-bookmark {
+  transform-origin: 16px 2px;
+  animation: ribbonSway 2.4s ease-in-out infinite;
+}
+@keyframes ribbonSway {
+  0%, 100% { transform: rotate(0deg); }
+  50%       { transform: rotate(14deg); }
+}
+
+.book-page {
+  animation: pageFade 2.6s ease-in-out infinite;
+}
+@keyframes pageFade {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1; stroke: #34d399; }
+}
+
+/* D. RETOS - 360° Radar Scanner Beam */
+.cine-radar {
+  animation: radarFloat 3s ease-in-out infinite;
+}
+@keyframes radarFloat {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.08); }
+}
+
+.radar-beam {
+  transform-origin: 12px 12px;
+  animation: radar360 2.8s linear infinite;
+}
+@keyframes radar360 {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* E. TRIBU - Living Wave Avatars */
+.user-head-1 {
+  animation: userBob1 2.8s ease-in-out infinite;
+}
+.user-head-2 {
+  animation: userBob2 2.8s ease-in-out 0.7s infinite;
+}
+@keyframes userBob1 {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-2.5px); fill: rgba(16,185,129,0.3); }
+}
+@keyframes userBob2 {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-3px); fill: rgba(56,189,248,0.3); }
+}
+
+/* F. LOGROS - Golden Trophy with Hovering Spark Star */
+.cine-trophy {
+  animation: trophyFloat 3.8s ease-in-out infinite;
+}
+@keyframes trophyFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-3px); }
+}
+
+.trophy-star {
+  animation: starSparkleGleam 2.2s ease-in-out infinite;
+}
+@keyframes starSparkleGleam {
+  0%, 100% { 
+    transform: translateY(0) scale(0.8); 
+    opacity: 0.5; 
+  }
+  50% { 
+    transform: translateY(-3.5px) scale(1.6); 
+    opacity: 1; 
+    filter: drop-shadow(0 0 8px #fbbf24); 
+    fill: #ffffff; 
+  }
+}
+
+/* G. MERCADO - Trend Tracer Node */
+.cine-trend {
+  animation: trendWave 3.2s ease-in-out infinite;
+}
+@keyframes trendWave {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50%       { transform: translateY(-3.5px) translateX(2px); }
+}
+
+.trend-node {
+  animation: nodePulsar 1.6s ease-in-out infinite;
+}
+@keyframes nodePulsar {
+  0%, 100% { transform: scale(0.9); opacity: 0.7; }
+  50%       { transform: scale(1.5); opacity: 1; filter: drop-shadow(0 0 8px #10b981); }
+}
+
+/* Nav Button Explosive Reactions on Hover */
+.nav-btn:hover .nav-icon-cine {
+  transform: scale(1.35) !important;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.9));
+}
+.nav-btn:hover .radar-beam {
+  animation-duration: 1s;
+}
+.nav-btn:hover .bar-1, .nav-btn:hover .bar-2, .nav-btn:hover .bar-3 {
+  animation-duration: 0.6s;
+}
+.nav-btn:hover .trophy-star {
+  animation-duration: 0.9s;
+}
+
+
+
+/* ==========================================================================
+   COLORFUL LIVING NAV ICONS (VIBRANT FINTECH SUITE)
+   ========================================================================== */
+
+.nav-icon-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  position: relative;
+  overflow: visible;
+}
+
+/* Vibrant Duo-tone Glow Badges */
+.badge-inicio {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.28), rgba(6, 182, 212, 0.28));
+  border: 1px solid rgba(52, 211, 153, 0.5);
+}
+
+.badge-panel {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.28), rgba(168, 85, 247, 0.28));
+  border: 1px solid rgba(129, 140, 248, 0.5);
+}
+
+.badge-cursos {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.28), rgba(16, 185, 129, 0.28));
+  border: 1px solid rgba(56, 189, 248, 0.5);
+}
+
+.badge-retos {
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.28), rgba(251, 191, 36, 0.28));
+  border: 1px solid rgba(251, 113, 133, 0.5);
+}
+
+.badge-tribu {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.28), rgba(59, 130, 246, 0.28));
+  border: 1px solid rgba(192, 132, 252, 0.5);
+}
+
+.badge-logros {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.3), rgba(234, 179, 8, 0.3));
+  border: 1px solid rgba(251, 191, 36, 0.55);
+}
+
+.badge-mercado {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(52, 211, 153, 0.3));
+  border: 1px solid rgba(52, 211, 153, 0.55);
+}
+
+/* Micro-movements with Colorful Lighting */
+
+/* 1. Inicio: Floating House + Emerald Breathing Hearth */
+.anim-home-float {
+  animation: houseFloat 3.4s ease-in-out infinite;
+}
+@keyframes houseFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-2.5px); }
+}
+
+.hearth-glow-dot {
+  transform-origin: 12px 15px;
+  animation: hearthGlowDot 1.8s ease-in-out infinite;
+}
+@keyframes hearthGlowDot {
+  0%, 100% { transform: scale(0.9); opacity: 0.7; filter: drop-shadow(0 0 2px #34d399); }
+  50%       { transform: scale(1.4); opacity: 1; filter: drop-shadow(0 0 6px #10b981) drop-shadow(0 0 10px #34d399); }
+}
+
+/* 2. Mi Panel: Multi-color Dancing Equalizer Columns */
+.bar-purple {
+  transform-origin: bottom center;
+  animation: eqBar1 1.2s ease-in-out infinite;
+}
+.bar-cyan {
+  transform-origin: bottom center;
+  animation: eqBar2 1.0s ease-in-out 0.2s infinite;
+}
+.bar-emerald {
+  transform-origin: bottom center;
+  animation: eqBar3 1.4s ease-in-out 0.4s infinite;
+}
+
+@keyframes eqBar1 {
+  0%, 100% { transform: scaleY(0.9); }
+  50%       { transform: scaleY(0.35); }
+}
+@keyframes eqBar2 {
+  0%, 100% { transform: scaleY(0.4); }
+  50%       { transform: scaleY(1.1); filter: drop-shadow(0 0 4px #818cf8); }
+}
+@keyframes eqBar3 {
+  0%, 100% { transform: scaleY(1); }
+  50%       { transform: scaleY(0.4); }
+}
+
+/* 3. Cursos: Color Flip Notebook */
+.anim-book-sway {
+  animation: bookTiltSway 3.8s ease-in-out infinite;
+}
+@keyframes bookTiltSway {
+  0%, 100% { transform: rotate(0deg); }
+  50%       { transform: rotate(-5deg) translateY(-2px); }
+}
+
+.ribbon-gold {
+  transform-origin: 14px 2px;
+  animation: ribbonWave 2.2s ease-in-out infinite;
+}
+@keyframes ribbonWave {
+  0%, 100% { transform: rotate(0deg); }
+  50%       { transform: rotate(15deg); filter: drop-shadow(0 0 4px #fbbf24); }
+}
+
+/* 4. Retos: Concentric Color Radar Scan */
+.radar-ring-pulse {
+  animation: radarRingBreath 2.4s ease-in-out infinite;
+}
+@keyframes radarRingBreath {
+  0%, 100% { transform: scale(0.95); opacity: 0.6; }
+  50%       { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 5px #f43f5e); }
+}
+
+.radar-sweep-beam {
+  transform-origin: 12px 12px;
+  animation: radarBeamSpin 2.6s linear infinite;
+}
+@keyframes radarBeamSpin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 5. Tribu: Living Colorful Avatars */
+.avatar-bob-cyan {
+  animation: avBob1 2.6s ease-in-out infinite;
+}
+.avatar-bob-purple {
+  animation: avBob2 2.6s ease-in-out 0.6s infinite;
+}
+@keyframes avBob1 {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-2px); }
+}
+@keyframes avBob2 {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-2.8px); }
+}
+
+/* 6. Logros: 3D Gold Trophy with Hovering Diamond Star */
+.trophy-gleam {
+  animation: trophyFloatAnim 3.2s ease-in-out infinite;
+}
+@keyframes trophyFloatAnim {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-2.5px); }
+}
+
+.trophy-superstar {
+  animation: superstarGlow 1.8s ease-in-out infinite;
+}
+@keyframes superstarGlow {
+  0%, 100% { 
+    transform: translateY(0) scale(0.8) rotate(0deg); 
+    opacity: 0.6; 
+  }
+  50% { 
+    transform: translateY(-3.5px) scale(1.5) rotate(180deg); 
+    opacity: 1; 
+    filter: drop-shadow(0 0 8px #fde047) drop-shadow(0 0 12px #f59e0b); 
+  }
+}
+
+/* 7. Mercado: Live Green Laser Trend with Blinking Energy Node */
+.anim-market-surge {
+  animation: marketAscent 2.8s ease-in-out infinite;
+}
+@keyframes marketAscent {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50%       { transform: translateY(-3px) translateX(2px); }
+}
+
+.market-pulse-node {
+  animation: nodeBeacon 1.4s ease-in-out infinite;
+}
+@keyframes nodeBeacon {
+  0%, 100% { transform: scale(0.9); opacity: 0.8; }
+  50%       { transform: scale(1.6); opacity: 1; filter: drop-shadow(0 0 8px #34d399) drop-shadow(0 0 14px #10b981); }
+}
+
+/* Navigation Hover Turbo Glows */
+.nav-btn:hover .nav-icon-badge {
+  transform: translateY(-2.5px) scale(1.15);
+  box-shadow: 0 4px 18px rgba(16, 185, 129, 0.45);
+}
+.nav-btn:hover .badge-panel { box-shadow: 0 4px 18px rgba(129, 140, 248, 0.55); }
+.nav-btn:hover .badge-retos { box-shadow: 0 4px 18px rgba(244, 63, 94, 0.55); }
+.nav-btn:hover .badge-logros { box-shadow: 0 4px 18px rgba(245, 158, 11, 0.55); }
+.nav-btn:hover .badge-tribu { box-shadow: 0 4px 18px rgba(168, 85, 247, 0.55); }
+
+
+
+/* ==========================================================================
+   VOLUMETRIC 3D LIVING ICONS SUITE (HYPER-REALISTIC ISOMETRIC FINTECH)
+   ========================================================================== */
+
+/* 3D Perspective Badge Container */
+.nav-icon-3d {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  perspective: 600px;
+  transform-style: preserve-3d;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+  box-shadow: 
+    0 4px 10px rgba(0, 0, 0, 0.4),
+    0 1px 0 rgba(255, 255, 255, 0.25) inset;
+}
+
+/* 3D Floating Token Animation (continuous wobble & tilt in 3D space) */
+@keyframes token3DFloatA {
+  0%, 100% { 
+    transform: perspective(600px) rotateX(14deg) rotateY(-10deg) translateY(0px) translateZ(0px);
+    box-shadow: 0 5px 12px rgba(0,0,0,0.45), 0 0 12px var(--badge-glow);
+  }
+  50% { 
+    transform: perspective(600px) rotateX(8deg) rotateY(12deg) translateY(-4px) translateZ(8px);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.6), 0 0 20px var(--badge-glow);
+  }
+}
+
+@keyframes token3DFloatB {
+  0%, 100% { 
+    transform: perspective(600px) rotateX(-10deg) rotateY(12deg) translateY(0px) translateZ(0px);
+    box-shadow: 0 5px 12px rgba(0,0,0,0.45), 0 0 12px var(--badge-glow);
+  }
+  50% { 
+    transform: perspective(600px) rotateX(12deg) rotateY(-8deg) translateY(-4.5px) translateZ(8px);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.6), 0 0 20px var(--badge-glow);
+  }
+}
+
+/* Specific 3D Glass Tokens with volumetric gradients & highlights */
+.badge-3d-inicio {
+  --badge-glow: rgba(16, 185, 129, 0.45);
+  background: linear-gradient(145deg, #064e3b 0%, #022c22 45%, #0f766e 100%);
+  border: 1px solid rgba(52, 211, 153, 0.6);
+  border-bottom: 2.5px solid #065f46;
+  animation: token3DFloatA 4s ease-in-out infinite;
+}
+
+.badge-3d-panel {
+  --badge-glow: rgba(129, 140, 248, 0.5);
+  background: linear-gradient(145deg, #312e81 0%, #1e1b4b 45%, #6d28d9 100%);
+  border: 1px solid rgba(167, 139, 250, 0.6);
+  border-bottom: 2.5px solid #4338ca;
+  animation: token3DFloatB 3.8s ease-in-out 0.3s infinite;
+}
+
+.badge-3d-cursos {
+  --badge-glow: rgba(56, 189, 248, 0.5);
+  background: linear-gradient(145deg, #075985 0%, #082f49 45%, #0284c7 100%);
+  border: 1px solid rgba(56, 189, 248, 0.65);
+  border-bottom: 2.5px solid #0369a1;
+  animation: token3DFloatA 4.2s ease-in-out 0.6s infinite;
+}
+
+.badge-3d-retos {
+  --badge-glow: rgba(244, 63, 94, 0.5);
+  background: linear-gradient(145deg, #881337 0%, #4c0519 45%, #be123c 100%);
+  border: 1px solid rgba(251, 113, 133, 0.65);
+  border-bottom: 2.5px solid #9f1239;
+  animation: token3DFloatB 3.6s ease-in-out 0.2s infinite;
+}
+
+.badge-3d-tribu {
+  --badge-glow: rgba(192, 132, 252, 0.5);
+  background: linear-gradient(145deg, #581c87 0%, #3b0764 45%, #7e22ce 100%);
+  border: 1px solid rgba(192, 132, 252, 0.65);
+  border-bottom: 2.5px solid #6b21a8;
+  animation: token3DFloatA 4.4s ease-in-out 0.8s infinite;
+}
+
+.badge-3d-logros {
+  --badge-glow: rgba(245, 158, 11, 0.55);
+  background: linear-gradient(145deg, #78350f 0%, #451a03 45%, #b45309 100%);
+  border: 1px solid rgba(251, 191, 36, 0.7);
+  border-bottom: 2.5px solid #92400e;
+  animation: token3DFloatB 3.4s ease-in-out 0.4s infinite;
+}
+
+.badge-3d-mercado {
+  --badge-glow: rgba(16, 185, 129, 0.5);
+  background: linear-gradient(145deg, #065f46 0%, #022c22 45%, #059669 100%);
+  border: 1px solid rgba(52, 211, 153, 0.65);
+  border-bottom: 2.5px solid #047857;
+  animation: token3DFloatA 3.9s ease-in-out 0.5s infinite;
+}
+
+/* 3D Specular Sheen (top glass highlight) */
+.nav-icon-3d::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  right: 2px;
+  height: 45%;
+  border-radius: 8px 8px 14px 14px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.05) 80%, transparent 100%);
+  pointer-events: none;
+}
+
+/* 3D Internal SVG Asset Styling */
+.svg-3d {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+/* Hover Reactions - 3D Pop Out & Tilt Shift */
+.nav-btn:hover .nav-icon-3d {
+  transform: perspective(600px) rotateX(0deg) rotateY(0deg) translateY(-6px) translateZ(16px) scale(1.18);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.65), 0 0 28px var(--badge-glow);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Active Button Indicator */
+.nav-btn.active .nav-icon-3d {
+  border-color: #ffffff;
+  box-shadow: 0 0 22px rgba(255,255,255,0.7), 0 0 35px var(--badge-glow);
+}
+
+
+
+/* ==========================================================================
+   FRAMELESS PURE 3D LIVING OBJECTS (HIGH-DEFINITION FINTECH)
+   ========================================================================== */
+
+/* 1. FRAMELESS 3D LOGO (Pure floating 3D Reactor & Gold Medallion) */
+.brand-logo-frameless-3d {
+  width: 54px;
+  height: 54px;
+  position: relative;
+  perspective: 800px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.logo-core-3d-wrap {
+  width: 52px;
+  height: 52px;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: logoPure3DDrift 5s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes logoPure3DDrift {
+  0%, 100% {
+    transform: perspective(800px) rotateY(0deg) rotateX(0deg) translateY(0px);
+    filter: drop-shadow(0 4px 16px rgba(16, 185, 129, 0.55)) drop-shadow(0 0 25px rgba(245, 158, 11, 0.35));
+  }
+  25% {
+    transform: perspective(800px) rotateY(18deg) rotateX(-8deg) translateY(-5px);
+    filter: drop-shadow(-4px 8px 24px rgba(16, 185, 129, 0.8)) drop-shadow(0 0 35px rgba(245, 158, 11, 0.5));
+  }
+  75% {
+    transform: perspective(800px) rotateY(-18deg) rotateX(8deg) translateY(-5px);
+    filter: drop-shadow(4px 8px 24px rgba(16, 185, 129, 0.8)) drop-shadow(0 0 35px rgba(245, 158, 11, 0.5));
+  }
+}
+
+/* Frameless Orbit Rings */
+.pure-orbit-1 {
+  position: absolute;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 1.6px dashed rgba(52, 211, 153, 0.85);
+  box-shadow: 0 0 14px rgba(52, 211, 153, 0.6);
+  animation: orbitSpin3D1 9s linear infinite;
+  pointer-events: none;
+}
+
+.pure-orbit-2 {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.6px solid rgba(251, 191, 36, 0.8);
+  border-left-color: transparent;
+  border-right-color: transparent;
+  box-shadow: 0 0 16px rgba(251, 191, 36, 0.6);
+  animation: orbitSpin3D2 12s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes orbitSpin3D1 {
+  0%   { transform: rotateX(65deg) rotateZ(0deg); }
+  100% { transform: rotateX(65deg) rotateZ(360deg); }
+}
+
+@keyframes orbitSpin3D2 {
+  0%   { transform: rotateY(65deg) rotateZ(0deg); }
+  100% { transform: rotateY(65deg) rotateZ(-360deg); }
+}
+
+.pure-quantum-satellite {
+  position: absolute;
+  width: 54px;
+  height: 54px;
+  animation: satelliteOrbit 4.5s linear infinite;
+  pointer-events: none;
+}
+
+.quantum-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 12px #34d399, 0 0 20px #10b981;
+  position: absolute;
+  top: 0;
+  left: 23px;
+  animation: dotBlink 1.6s ease-in-out infinite;
+}
+
+@keyframes satelliteOrbit {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes dotBlink {
+  0%, 100% { transform: scale(0.9); opacity: 0.8; }
+  50%       { transform: scale(1.5); opacity: 1; filter: drop-shadow(0 0 12px #fff); }
+}
+
+.brand-wrapper:hover .brand-logo-frameless-3d {
+  transform: scale(1.18);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 2. FRAMELESS PURE 3D NAV ICONS (No frames, No box borders, pure volumetric objects) */
+.nav-pure-3d {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  perspective: 700px;
+  transform-style: preserve-3d;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  margin-right: 2px;
+}
+
+.nav-pure-3d svg {
+  width: 24px;
+  height: 24px;
+  overflow: visible;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.45));
+  transform-style: preserve-3d;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+}
+
+/* Individual Continuous 3D Object Movements (No frames, pure 3D objects!) */
+
+/* A. 3D HOUSE (Inicio): Isometric crystal house bobbing and tilting */
+.pure-3d-home {
+  animation: pure3DHouseMotion 3.8s ease-in-out infinite;
+}
+@keyframes pure3DHouseMotion {
+  0%, 100% { 
+    transform: perspective(700px) rotateX(12deg) rotateY(-8deg) translateY(0px) scale(1);
+    filter: drop-shadow(0 3px 8px rgba(16, 185, 129, 0.45));
+  }
+  50% { 
+    transform: perspective(700px) rotateX(6deg) rotateY(12deg) translateY(-4px) scale(1.08);
+    filter: drop-shadow(0 8px 16px rgba(16, 185, 129, 0.85)) drop-shadow(0 0 10px #34d399);
+  }
+}
+
+/* B. 3D EQUALIZER BARS (Mi Panel): True isometric volumetric columns dancing up/down */
+.pure-3d-panel {
+  animation: pure3DPanelTilt 4s ease-in-out infinite;
+}
+@keyframes pure3DPanelTilt {
+  0%, 100% { transform: perspective(700px) rotateX(15deg) rotateY(10deg); }
+  50%       { transform: perspective(700px) rotateX(8deg) rotateY(-10deg) translateY(-3px); }
+}
+
+.iso-bar-1 {
+  transform-origin: 7px 29px;
+  animation: isoBarDance1 1.3s ease-in-out infinite;
+}
+.iso-bar-2 {
+  transform-origin: 16px 29px;
+  animation: isoBarDance2 1.0s ease-in-out 0.2s infinite;
+}
+.iso-bar-3 {
+  transform-origin: 25px 29px;
+  animation: isoBarDance3 1.5s ease-in-out 0.4s infinite;
+}
+
+@keyframes isoBarDance1 {
+  0%, 100% { transform: scaleY(0.9); }
+  50%       { transform: scaleY(0.4); }
+}
+@keyframes isoBarDance2 {
+  0%, 100% { transform: scaleY(0.45); }
+  50%       { transform: scaleY(1.15); filter: drop-shadow(0 0 6px #38bdf8); }
+}
+@keyframes isoBarDance3 {
+  0%, 100% { transform: scaleY(1); }
+  50%       { transform: scaleY(0.45); }
+}
+
+/* C. 3D HARDCOVER BOOK (Cursos): Floating open book with fluttering golden bookmark */
+.pure-3d-book {
+  animation: pure3DBookMotion 4.2s ease-in-out infinite;
+}
+@keyframes pure3DBookMotion {
+  0%, 100% { 
+    transform: perspective(700px) rotateX(16deg) rotateY(-12deg) translateY(0);
+    filter: drop-shadow(0 4px 10px rgba(56, 189, 248, 0.45));
+  }
+  50% { 
+    transform: perspective(700px) rotateX(8deg) rotateY(14deg) translateY(-4px) scale(1.08);
+    filter: drop-shadow(0 8px 18px rgba(56, 189, 248, 0.85)) drop-shadow(0 0 10px #38bdf8);
+  }
+}
+
+/* D. 3D RADAR ARENA (Retos): Elliptical arena tilted in 3D with continuous 360° laser sweep */
+.pure-3d-radar {
+  animation: pure3DRadarMotion 3.6s ease-in-out infinite;
+}
+@keyframes pure3DRadarMotion {
+  0%, 100% { 
+    transform: perspective(700px) rotateX(24deg) rotateY(0deg) translateY(0);
+    filter: drop-shadow(0 4px 12px rgba(244, 63, 94, 0.5));
+  }
+  50% { 
+    transform: perspective(700px) rotateX(12deg) rotateY(15deg) translateY(-3.5px) scale(1.1);
+    filter: drop-shadow(0 8px 20px rgba(244, 63, 94, 0.85)) drop-shadow(0 0 12px #f43f5e);
+  }
+}
+
+/* E. 3D SPHERE AVATARS (Tribu): Glossy 3D avatars bobbing in space */
+.pure-3d-tribu {
+  animation: pure3DTribuMotion 4.4s ease-in-out infinite;
+}
+@keyframes pure3DTribuMotion {
+  0%, 100% { 
+    transform: perspective(700px) rotateX(10deg) rotateY(-10deg) translateY(0);
+    filter: drop-shadow(0 4px 12px rgba(192, 132, 252, 0.5));
+  }
+  50% { 
+    transform: perspective(700px) rotateX(-8deg) rotateY(12deg) translateY(-4px) scale(1.08);
+    filter: drop-shadow(0 8px 20px rgba(192, 132, 252, 0.85)) drop-shadow(0 0 12px #c084fc);
+  }
+}
+
+/* F. 3D GOLD TROPHY (Logros): Heavy metallic gold chalice with diamond star spinning in 3D */
+.pure-3d-logros {
+  animation: pure3DLogrosMotion 3.5s ease-in-out infinite;
+}
+@keyframes pure3DLogrosMotion {
+  0%, 100% { 
+    transform: perspective(700px) rotateX(12deg) rotateY(-8deg) translateY(0);
+    filter: drop-shadow(0 4px 14px rgba(245, 158, 11, 0.55));
+  }
+  50% { 
+    transform: perspective(700px) rotateX(6deg) rotateY(16deg) translateY(-4.5px) scale(1.12);
+    filter: drop-shadow(0 9px 24px rgba(245, 158, 11, 0.9)) drop-shadow(0 0 16px #fde047);
+  }
+}
+
+/* G. 3D ASCENDING LASER CURVE (Mercado): 3D isometric ramp with flying glowing orb */
+.pure-3d-mercado {
+  animation: pure3DMercadoMotion 3.2s ease-in-out infinite;
+}
+@keyframes pure3DMercadoMotion {
+  0%, 100% { 
+    transform: perspective(700px) rotateX(16deg) rotateY(10deg) translateY(0);
+    filter: drop-shadow(0 4px 12px rgba(16, 185, 129, 0.5));
+  }
+  50% { 
+    transform: perspective(700px) rotateX(8deg) rotateY(-12deg) translateY(-4px) scale(1.1);
+    filter: drop-shadow(0 8px 20px rgba(16, 185, 129, 0.85)) drop-shadow(0 0 14px #00f5a0);
+  }
+}
+
+/* Hover Turbo Reaction on Frameless 3D Icons */
+.nav-btn:hover .nav-pure-3d svg {
+  transform: perspective(700px) rotateX(0deg) rotateY(0deg) translateY(-7px) scale(1.35) !important;
+  filter: drop-shadow(0 12px 24px rgba(255,255,255,0.7)) drop-shadow(0 0 20px currentColor) !important;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nav-btn.active .nav-pure-3d svg {
+  filter: drop-shadow(0 0 14px rgba(255,255,255,0.9)) drop-shadow(0 0 20px #34d399);
+}
+
+
+
+/* ==========================================================================
+   PERFECT HEADER CENTERING & FLEXBOX ALIGNMENT
+   ========================================================================== */
+.main-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  background: rgba(6, 10, 20, 0.92);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(16, 185, 129, 0.2);
+  padding: 8px 0;
+  width: 100%;
+}
+
+.header-content {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: nowrap;
+}
+
+.brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: rgba(14, 21, 38, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  padding: 4px 8px;
+  margin: 0 auto;
+  flex-shrink: 0;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+}
+
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.page-title-banner {
+  text-align: center;
+  padding: 40px 0 28px 0;
+}
+
+.page-title-banner .card-tag {
+  margin: 0 auto 12px auto;
 }

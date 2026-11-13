@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -21,54 +21,223 @@
 <body>
 
   <!-- Top Main Navigation Bar -->
+    <!-- Top Main Navigation Bar -->
   <header class="main-header" id="main-header">
     <div class="header-content">
+      <!-- 1. LEFT: SINGLE CLEAN 3D LOGO -->
       <div class="brand-wrapper" onclick="switchMainTab('inicio')">
-        <div class="brand-icon">🪙</div>
+        <div class="brand-logo-frameless-3d" title="CoinTribe 3D Engine">
+          <div class="logo-core-3d-wrap">
+            <div class="pure-orbit-1"></div>
+            <div class="pure-orbit-2"></div>
+            
+            <svg width="44" height="44" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="pCoinGold" x1="10" y1="8" x2="50" y2="52" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#fffbeb"/>
+                  <stop offset="25%" stop-color="#fde68a"/>
+                  <stop offset="55%" stop-color="#f59e0b"/>
+                  <stop offset="85%" stop-color="#d97706"/>
+                  <stop offset="100%" stop-color="#78350f"/>
+                </linearGradient>
+                <radialGradient id="pCoinShine" cx="35%" cy="30%" r="55%">
+                  <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+                  <stop offset="50%" stop-color="#ffffff" stop-opacity="0.2"/>
+                  <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                </radialGradient>
+                <filter id="pNeon">
+                  <feGaussianBlur stdDeviation="2" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+              <circle cx="30" cy="30" r="23" fill="url(#pCoinGold)"/>
+              <circle cx="30" cy="30" r="23" fill="url(#pCoinShine)"/>
+              <circle cx="30" cy="30" r="22" fill="none" stroke="#fffbeb" stroke-width="1" opacity="0.7"/>
+              <circle cx="30" cy="30" r="18" fill="#04271f" stroke="#059669" stroke-width="1.6"/>
+              <circle cx="30" cy="30" r="14.5" fill="none" stroke="#f59e0b" stroke-width="0.8" opacity="0.6"/>
+              <path d="M22 36 L27 29 L31 33 L39 20" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none" filter="url(#pNeon)"/>
+              <polyline points="33,20 39,20 39,26" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none" filter="url(#pNeon)"/>
+              <circle cx="31" cy="33" r="1.8" fill="#fbbf24"/>
+            </svg>
+
+            <div class="pure-quantum-satellite">
+              <div class="quantum-dot"></div>
+            </div>
+          </div>
+        </div>
+
         <div class="brand-info">
-          <h1>CoinTribe</h1>
-          <p>Educación financiera personal & comunidad</p>
+          <h1>
+            <span class="brand-name-cinematic">CoinTribe</span>
+            <span class="brand-badge-quantum">3D</span>
+          </h1>
+          <p>Educaci&#243;n financiera personal &amp; comunidad</p>
         </div>
       </div>
 
-      <!-- Navigation Tabs in Header -->
-      <nav class="nav-menu" id="nav-menu" aria-label="Navegación principal">
+      <!-- 2. CENTER: PERFECTLY CENTERED NAVIGATION TABS -->
+      <nav class="nav-menu" id="nav-menu" aria-label="Navegaci&#243;n principal">
         <button class="nav-btn active" data-target="inicio" id="nav-btn-inicio">
-          ✨ Inicio & Parallax
+          <span class="nav-pure-3d pure-3d-home">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="rfL" x1="16" y1="3" x2="5" y2="15"><stop offset="0%" stop-color="#6ee7b7"/><stop offset="100%" stop-color="#10b981"/></linearGradient>
+                <linearGradient id="rfR" x1="16" y1="3" x2="27" y2="15"><stop offset="0%" stop-color="#34d399"/><stop offset="100%" stop-color="#047857"/></linearGradient>
+                <linearGradient id="wlF" x1="5" y1="14" x2="16" y2="28"><stop offset="0%" stop-color="#059669"/><stop offset="100%" stop-color="#022c22"/></linearGradient>
+                <linearGradient id="wlS" x1="16" y1="14" x2="27" y2="28"><stop offset="0%" stop-color="#047857"/><stop offset="100%" stop-color="#011b15"/></linearGradient>
+              </defs>
+              <polygon points="16,3 5,11 16,15 27,11" fill="url(#rfL)"/>
+              <polygon points="16,15 27,11 27,13.5 16,17.5" fill="#047857" opacity="0.85"/>
+              <polygon points="5,11 16,15 16,28 5,24" fill="url(#wlF)"/>
+              <polygon points="16,15 27,11 27,24 16,28" fill="url(#wlS)"/>
+              <polygon points="8.5,17.5 13,19.5 13,26 8.5,24" fill="#34d399"/>
+              <circle cx="11" cy="22" r="1.8" fill="#fef08a" class="hearth-glow-dot"/>
+            </svg>
+          </span>
+          Inicio
         </button>
+
         <button class="nav-btn" data-target="dashboard" id="nav-btn-dashboard">
-          📊 Mi Panel
+          <span class="nav-pure-3d pure-3d-panel">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="c1Top" x1="4" y1="15" x2="10" y2="19"><stop offset="0%" stop-color="#f3e8ff"/><stop offset="100%" stop-color="#c084fc"/></linearGradient>
+                <linearGradient id="c2Top" x1="12" y1="6" x2="20" y2="11"><stop offset="0%" stop-color="#e0f2fe"/><stop offset="100%" stop-color="#38bdf8"/></linearGradient>
+                <linearGradient id="c3Top" x1="22" y1="11" x2="28" y2="15"><stop offset="0%" stop-color="#d1fae5"/><stop offset="100%" stop-color="#34d399"/></linearGradient>
+              </defs>
+              <g class="iso-bar-1">
+                <polygon points="7,15 4,17.5 7,20 10,17.5" fill="url(#c1Top)"/>
+                <polygon points="4,17.5 7,20 7,29 4,26.5" fill="#9333ea"/>
+                <polygon points="7,20 10,17.5 10,26.5 7,29" fill="#6b21a8"/>
+              </g>
+              <g class="iso-bar-2">
+                <polygon points="16,6 12,9 16,12 20,9" fill="url(#c2Top)"/>
+                <polygon points="12,9 16,12 16,29 12,26" fill="#0284c7"/>
+                <polygon points="16,12 20,9 20,26 16,29" fill="#0369a1"/>
+              </g>
+              <g class="iso-bar-3">
+                <polygon points="25,11 22,13.5 25,16 28,13.5" fill="url(#c3Top)"/>
+                <polygon points="22,13.5 25,16 25,29 22,26.5" fill="#059669"/>
+                <polygon points="25,16 28,13.5 28,26.5 25,29" fill="#047857"/>
+              </g>
+            </svg>
+          </span>
+          Mi Panel
         </button>
+
         <button class="nav-btn" data-target="courses" id="nav-btn-courses">
-          📚 Cursos
+          <span class="nav-pure-3d pure-3d-book">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="bkL" x1="3" y1="5" x2="16" y2="24"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#0284c7"/></linearGradient>
+                <linearGradient id="bkR" x1="16" y1="5" x2="29" y2="24"><stop offset="0%" stop-color="#0ea5e9"/><stop offset="100%" stop-color="#0369a1"/></linearGradient>
+              </defs>
+              <polygon points="16,9 3.5,7 3.5,24 16,26" fill="url(#bkL)"/>
+              <polygon points="16,9 28.5,7 28.5,24 16,26" fill="url(#bkR)"/>
+              <polygon points="16,10 5.5,8.5 5.5,23 16,24.5" fill="#f8fafc"/>
+              <polygon points="16,10 26.5,8.5 26.5,23 16,24.5" fill="#e2e8f0"/>
+              <line x1="16" y1="8" x2="16" y2="26.5" stroke="#0369a1" stroke-width="2"/>
+              <polygon points="14.5,5 17.5,5 18.5,17 16,15 13.5,17" fill="#fbbf24" stroke="#d97706" stroke-width="0.8" class="ribbon-gold"/>
+            </svg>
+          </span>
+          Cursos
         </button>
+
         <button class="nav-btn" data-target="challenges" id="nav-btn-challenges">
-          🎯 Retos de Ahorro
+          <span class="nav-pure-3d pure-3d-radar">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="pRadarGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#fb7185"/><stop offset="70%" stop-color="#be123c"/><stop offset="100%" stop-color="#881337"/>
+                </radialGradient>
+              </defs>
+              <ellipse cx="16" cy="16" rx="14.5" ry="11.5" fill="url(#pRadarGlow)" stroke="#f43f5e" stroke-width="2" class="radar-ring-pulse"/>
+              <ellipse cx="16" cy="16" rx="9.5" ry="7.5" fill="none" stroke="#38bdf8" stroke-width="1.8"/>
+              <ellipse cx="16" cy="16" rx="4" ry="3" fill="#fde047"/>
+              <line x1="16" y1="16" x2="28" y2="9" stroke="#00f0ff" stroke-width="2.8" stroke-linecap="round" class="radar-sweep-beam"/>
+              <circle cx="28" cy="9" r="1.8" fill="#ffffff"/>
+            </svg>
+          </span>
+          Retos
         </button>
+
         <button class="nav-btn" data-target="tribu" id="nav-btn-tribu">
-          💬 Tribu
+          <span class="nav-pure-3d pure-3d-tribu">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="sp1" cx="35%" cy="30%" r="60%">
+                  <stop offset="0%" stop-color="#fdf4ff"/><stop offset="40%" stop-color="#c084fc"/><stop offset="100%" stop-color="#6b21a8"/>
+                </radialGradient>
+                <radialGradient id="sp2" cx="35%" cy="30%" r="60%">
+                  <stop offset="0%" stop-color="#f0f9ff"/><stop offset="40%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#0284c7"/>
+                </radialGradient>
+              </defs>
+              <g class="avatar-bob-purple">
+                <circle cx="11" cy="10" r="5.5" fill="url(#sp1)" stroke="#f5d0fe" stroke-width="1"/>
+                <path d="M2.5 27 C2.5 19 7 17 11 17 C15 17 19.5 19 19.5 27 Z" fill="#7e22ce" stroke="#c084fc" stroke-width="1.4"/>
+              </g>
+              <g class="avatar-bob-cyan">
+                <circle cx="22" cy="12" r="4.5" fill="url(#sp2)" stroke="#bae6fd" stroke-width="1"/>
+                <path d="M15 27 C15 20.5 18.5 19 22 19 C25.5 19 29 20.5 29 27 Z" fill="#0284c7" stroke="#38bdf8" stroke-width="1.4"/>
+              </g>
+            </svg>
+          </span>
+          Tribu
         </button>
+
         <button class="nav-btn" data-target="achievements" id="nav-btn-achievements">
-          🏆 Logros
+          <span class="nav-pure-3d pure-3d-logros">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="pGoldCup" x1="7" y1="5" x2="25" y2="24"><stop offset="0%" stop-color="#fef9c3"/><stop offset="35%" stop-color="#f59e0b"/><stop offset="75%" stop-color="#b45309"/><stop offset="100%" stop-color="#78350f"/></linearGradient>
+                <radialGradient id="pStarGleam" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#ffffff"/><stop offset="50%" stop-color="#fde047"/><stop offset="100%" stop-color="#f59e0b"/>
+                </radialGradient>
+              </defs>
+              <path d="M6 10 C3 10 3 17 7 17" stroke="#d97706" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+              <path d="M26 10 C29 10 29 17 25 17" stroke="#d97706" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+              <ellipse cx="16" cy="7.5" rx="8.5" ry="2.8" fill="#fef08a" stroke="#d97706" stroke-width="1.2"/>
+              <path d="M7.5 7.5 C7.5 17 11.5 21 16 21 C20.5 21 24.5 17 24.5 7.5 Z" fill="url(#pGoldCup)" stroke="#92400e" stroke-width="1.4"/>
+              <rect x="14.5" y="21" width="3" height="4" fill="#b45309"/>
+              <polygon points="9,27 23,27 25,29.5 7,29.5" fill="#78350f"/>
+              <ellipse cx="16" cy="27" rx="7" ry="1.8" fill="#fde047"/>
+              <polygon points="16,0 18,3 21.5,4 19,7 20,10.5 16,8.5 12,10.5 13,7 10.5,4 14,3" fill="url(#pStarGleam)" class="trophy-superstar"/>
+            </svg>
+          </span>
+          Logros
         </button>
+
         <button class="nav-btn" data-target="coins" id="nav-btn-coins">
-          🪙 Mercado
+          <span class="nav-pure-3d pure-3d-mercado">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="pRamp" x1="3" y1="26" x2="29" y2="7"><stop offset="0%" stop-color="#064e3b"/><stop offset="50%" stop-color="#10b981"/><stop offset="100%" stop-color="#6ee7b7"/></linearGradient>
+                <radialGradient id="pOrb" cx="35%" cy="35%" r="65%">
+                  <stop offset="0%" stop-color="#ffffff"/><stop offset="40%" stop-color="#00f5a0"/><stop offset="100%" stop-color="#047857"/>
+                </radialGradient>
+              </defs>
+              <line x1="3" y1="27" x2="29" y2="27" stroke="rgba(52,211,153,0.35)" stroke-width="1.8"/>
+              <line x1="6" y1="23" x2="26" y2="23" stroke="rgba(52,211,153,0.2)" stroke-width="1.2"/>
+              <path d="M3 25 C10 25 12 18 18 16 C22 14 24 10 27 7.5" stroke="url(#pRamp)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+              <polyline points="20,6.5 27,6.5 27,13.5" stroke="#a7f3d0" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="27" cy="6.5" r="3.5" fill="url(#pOrb)" stroke="#ffffff" stroke-width="1" class="market-pulse-node"/>
+            </svg>
+          </span>
+          Mercado
         </button>
       </nav>
 
-      <!-- Auth Header Controls -->
+      <!-- 3. RIGHT: USER PROFILE & ACTIONS -->
       <div class="header-actions">
-        <!-- Logged Out State -->
         <div class="auth-buttons-group" id="header-logged-out">
           <button class="btn-secondary btn-sm" onclick="openAuthModal('login')">
             Iniciar Sesión
           </button>
           <button class="btn-primary btn-sm" onclick="openAuthModal('register')">
-            Registrarse ✨
+            Registrarse <svg class="inline-svg anim-pulse" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </button>
         </div>
 
-        <!-- Logged In State -->
         <div class="auth-buttons-group" id="header-logged-in" style="display: none;">
           <div class="user-badge-pill" id="user-badge" onclick="openSwitchUserModal()" title="Haz clic para cambiar usuario">
             <div class="user-avatar" id="current-user-avatar">A</div>
@@ -78,13 +247,12 @@
             </div>
           </div>
           <button class="btn-icon-round" onclick="logout()" title="Cerrar Sesión" aria-label="Cerrar Sesión">
-            🚪
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
           </button>
         </div>
 
-        <!-- Theme Toggle -->
         <button class="btn-icon-round" id="btn-theme-toggle" aria-label="Cambiar tema">
-          ☀️
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
         </button>
       </div>
     </div>
@@ -96,7 +264,7 @@
   <section class="main-tab-view active" id="view-inicio">
     <div class="hero-parallax-section" id="hero-section">
       <div class="hero-pill-badge" id="hero-badge">
-        <span>✨</span> Experiencia Visual Parallax & Gamificación
+        <svg class="inline-svg anim-pulse" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Experiencia Visual Parallax & Gamificación
       </div>
 
       <h1 class="hero-title-main" id="hero-heading">
@@ -110,17 +278,17 @@
 
       <div class="hero-cta-buttons" id="hero-ctas">
         <button class="btn-primary" onclick="handleDashboardAccess()">
-          Ir a Mi Panel de Ahorro 🚀
+          Ir a Mi Panel de Ahorro <svg class="inline-svg anim-float" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </button>
         <button class="btn-secondary" onclick="openAuthModal('login')">
-          🔐 Iniciar Sesión / Registro
+          <svg class="inline-svg anim-pulse" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Iniciar Sesión / Registro
         </button>
       </div>
 
       <!-- Expanding Image Frame on Scroll via GSAP -->
       <div class="expand-image-wrapper" id="hero-expand-wrapper">
         <div class="floating-badge floating-badge-top-left" id="hero-float-1">
-          <span class="badge-icon">🪙</span>
+          <span class="badge-icon"><svg class="inline-svg anim-float" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M15 9.5a3.5 3.5 0 0 0-5 0c0 2 2 2.5 5 3.5s2 2.5 0 4.5a3.5 3.5 0 0 1-5 0"/></svg></span>
           <div>
             <div class="badge-title">Moneda Tribal</div>
             <div class="badge-val" id="float-badge-savings">$500.000 Meta</div>
@@ -128,7 +296,7 @@
         </div>
 
         <div class="floating-badge floating-badge-bottom-right" id="hero-float-2">
-          <span class="badge-icon">🔥</span>
+          <span class="badge-icon"><svg class="inline-svg anim-pulse" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></span>
           <div>
             <div class="badge-title">Racha Activa</div>
             <div class="badge-val">Comunidad CoinTribe</div>
@@ -146,14 +314,14 @@
       <!-- Strip 1: Academy -->
       <div class="parallax-strip-section" id="strip-academy">
         <div class="strip-text-content">
-          <span class="card-tag tag-inversion">🎓 Academia Financiera</span>
+          <span class="card-tag tag-inversion"><svg class="inline-svg anim-float" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Academia Financiera</span>
           <h3>Educación Práctica que Transforma Hábitos</h3>
           <p>Lecciones interactivas de menos de 5 minutos sobre presupuesto 50/30/20, fondos de emergencia e inversiones indexadas a largo plazo.</p>
 
           <ul class="strip-feature-list">
-            <li><span class="check-icon">✓</span> Progreso paso a paso con seguimiento visual</li>
-            <li><span class="check-icon">✓</span> Multiplica tus conocimientos y sube de nivel</li>
-            <li><span class="check-icon">✓</span> Respaldado por el sistema de datos CoinTribe</li>
+            <li><span class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Progreso paso a paso con seguimiento visual</li>
+            <li><span class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Multiplica tus conocimientos y sube de nivel</li>
+            <li><span class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Respaldado por el sistema de datos CoinTribe</li>
           </ul>
 
           <button class="btn-primary" onclick="switchMainTab('courses')">
@@ -169,14 +337,14 @@
       <!-- Strip 2: Community -->
       <div class="parallax-strip-section reversed" id="strip-community">
         <div class="strip-text-content">
-          <span class="card-tag tag-ahorro">👥 Retos & Comunidad</span>
+          <span class="card-tag tag-ahorro"><svg class="inline-svg anim-pulse" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Retos & Comunidad</span>
           <h3>El Poder de Avanzar Acompañado</h3>
           <p>Unirte a retos colectivos aumenta 3 veces la probabilidad de cumplir tus metas. Comparte aprendizajes y celebra cada logro con la tribu.</p>
 
           <ul class="strip-feature-list">
-            <li><span class="check-icon">✓</span> Retos de ahorro de 7, 30 y 90 días con depósitos semanales</li>
-            <li><span class="check-icon">✓</span> Foro social interactivo con sistema de "Me gusta"</li>
-            <li><span class="check-icon">✓</span> Desbloqueo de insignias y medallas de honor</li>
+            <li><span class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Retos de ahorro de 7, 30 y 90 días con depósitos semanales</li>
+            <li><span class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Foro social interactivo con sistema de "Me gusta"</li>
+            <li><span class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Desbloqueo de insignias y medallas de honor</li>
           </ul>
 
           <button class="btn-secondary" onclick="switchMainTab('challenges')">
@@ -201,16 +369,16 @@
       <div class="dashboard-hero-card">
         <div class="dash-card-header">
           <div class="dash-card-title-box">
-            <div class="dash-glow-pill">🎯 Mi Espacio Financiero</div>
+            <div class="dash-glow-pill"><svg class="inline-svg anim-radar" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Mi Espacio Financiero</div>
             <h2>Panel de Control Personal</h2>
             <p>Gestiona tu capital, abona a tus metas y visualiza tu ritmo de ahorro en tiempo real.</p>
           </div>
           <div class="dash-card-actions">
             <button class="btn-primary btn-glow" onclick="openModal('modal-add-ahorro')">
-              + Depositar Ahorro
+              <svg class="inline-svg anim-pulse" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg> Depositar Ahorro
             </button>
             <button class="btn-secondary" onclick="openModal('modal-update-goal')">
-              ✏️ Modificar Meta
+              <svg class="inline-svg anim-float" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Modificar Meta
             </button>
           </div>
         </div>
@@ -219,7 +387,7 @@
         <div class="metrics-grid">
           <div class="metric-card metric-primary">
             <div class="metric-top">
-              <span class="metric-icon">💰</span>
+              <span class="metric-icon"><svg class="inline-svg anim-float" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><circle cx="12" cy="12" r="3.5"/><path d="M6 12h.01M18 12h.01"/></svg></span>
               <span class="metric-title">Ahorro Acumulado</span>
             </div>
             <div class="metric-val text-emerald" id="stat-savings">$0</div>
@@ -228,7 +396,7 @@
 
           <div class="metric-card">
             <div class="metric-top">
-              <span class="metric-icon">🎯</span>
+              <span class="metric-icon"><svg class="inline-svg anim-radar" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
               <span class="metric-title">Meta Establecida</span>
             </div>
             <div class="metric-val" id="stat-goal">$0</div>
@@ -237,7 +405,7 @@
 
           <div class="metric-card metric-gold">
             <div class="metric-top">
-              <span class="metric-icon">📈</span>
+              <span class="metric-icon"><svg class="inline-svg anim-trend" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
               <span class="metric-title">Cumplimiento</span>
             </div>
             <div class="metric-val text-gold" id="stat-percentage">0%</div>
@@ -246,7 +414,7 @@
 
           <div class="metric-card">
             <div class="metric-top">
-              <span class="metric-icon">🎓</span>
+              <span class="metric-icon"><svg class="inline-svg anim-float" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
               <span class="metric-title">Lecciones Completadas</span>
             </div>
             <div class="metric-val text-indigo" id="stat-lessons">0</div>
@@ -276,7 +444,7 @@
       <!-- Quick Action Deposit Presets -->
       <div class="quick-deposit-banner">
         <div class="quick-deposit-info">
-          <h4>⚡ Depósito Rápido de Ahorro</h4>
+          <h4><svg class="inline-svg anim-pulse" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Depósito Rápido de Ahorro</h4>
           <p>Añade un aporte directo con un solo clic:</p>
         </div>
         <div class="quick-preset-buttons">
@@ -289,7 +457,7 @@
 
       <!-- Dashboard Sections: Challenges In Progress & Courses -->
       <div class="section-header" style="margin-top: 40px;">
-        <h3>🎯 Mis Retos en Curso</h3>
+        <h3><svg class="inline-svg anim-radar" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Mis Retos en Curso</h3>
         <button class="btn-secondary btn-sm" onclick="switchMainTab('challenges')">Ver todos los retos →</button>
       </div>
       <div class="cards-grid" id="my-challenges-list" style="margin-bottom: 40px;">
@@ -297,7 +465,7 @@
       </div>
 
       <div class="section-header">
-        <h3>📚 Cursos Recomendados</h3>
+        <h3><svg class="inline-svg anim-float" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Cursos Recomendados</h3>
         <button class="btn-secondary btn-sm" onclick="switchMainTab('courses')">Ir a la Academia →</button>
       </div>
       <div class="cards-grid" id="courses-list-preview">
@@ -313,7 +481,7 @@
   <section class="main-tab-view" id="view-courses" style="display: none;">
     <div class="app-container">
       <div class="page-title-banner">
-        <span class="card-tag tag-inversion">📚 Formación Continua</span>
+        <span class="card-tag tag-inversion"><svg class="inline-svg anim-float" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Formación Continua</span>
         <h2>Academia de Educación Financiera</h2>
         <p>Aprende conceptos fundamentales y ponlos en práctica para transformar tu relación con el dinero.</p>
       </div>
@@ -329,7 +497,7 @@
   <section class="main-tab-view" id="view-challenges" style="display: none;">
     <div class="app-container">
       <div class="page-title-banner">
-        <span class="card-tag tag-ahorro">🎯 Retos Colectivos</span>
+        <span class="card-tag tag-ahorro"><svg class="inline-svg anim-radar" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Retos Colectivos</span>
         <h2>Retos Comunitarios de Ahorro</h2>
         <p>Acepta desafíos diseñados para crear hábitos consistentes. Aporta periódicamente y celebra cada victoria con la tribu.</p>
       </div>
@@ -346,12 +514,12 @@
     <div class="app-container">
       <div class="page-title-banner" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px;">
         <div>
-          <span class="card-tag tag-bases">💬 Muro Social</span>
+          <span class="card-tag tag-bases"><svg class="inline-svg anim-float" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Muro Social</span>
           <h2>Foro de la Tribu CoinTribe</h2>
           <p>Comparte tus experiencias de ahorro, consulta dudas y apoya a otros miembros.</p>
         </div>
         <button class="btn-primary" onclick="openModal('modal-create-post')">
-          ✍️ Nueva Publicación
+          <svg class="inline-svg anim-pulse" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> Nueva Publicación
         </button>
       </div>
       <div id="posts-list" style="max-width: 860px; margin: 0 auto;">
@@ -366,7 +534,7 @@
   <section class="main-tab-view" id="view-achievements" style="display: none;">
     <div class="app-container">
       <div class="page-title-banner">
-        <span class="card-tag tag-ahorro">🏆 Gamificación</span>
+        <span class="card-tag tag-ahorro"><svg class="inline-svg anim-pulse" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg> Gamificación</span>
         <h2>Vitrina de Medallas y Logros</h2>
         <p>Desbloquea insignias exclusivas completando cursos, retos y alcanzando tus objetivos de ahorro.</p>
       </div>
@@ -382,7 +550,7 @@
   <section class="main-tab-view" id="view-coins" style="display: none;">
     <div class="app-container">
       <div class="page-title-banner">
-        <span class="card-tag tag-bases">🪙 Monedas & Criptoactivos</span>
+        <span class="card-tag tag-bases"><svg class="inline-svg anim-float" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M15 9.5a3.5 3.5 0 0 0-5 0c0 2 2 2.5 5 3.5s2 2.5 0 4.5a3.5 3.5 0 0 1-5 0"/></svg> Monedas & Criptoactivos</span>
         <h2>Mercado y Activos de Inversión</h2>
         <p>Sigue las cotizaciones de referencia para tus metas de diversificación patrimonial.</p>
       </div>
@@ -410,10 +578,21 @@
   <div class="modal-overlay" id="modal-auth">
     <div class="modal-card auth-modal-card">
       <div class="modal-header">
-        <div class="auth-modal-brand">
-          <div class="brand-icon" style="width: 36px; height: 36px; font-size: 20px;">🪙</div>
-          <h3>CoinTribe</h3>
-        </div>
+                  <div class="auth-modal-brand">
+            <div class="brand-logo-svg" style="width:34px;height:34px">
+              <svg width="34" height="34" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="mlg1" x1="0" y1="0" x2="46" y2="46" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="#047857"/></linearGradient>
+                  <linearGradient id="mlg2" x1="10" y1="10" x2="34" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#b45309"/></linearGradient>
+                </defs>
+                <rect width="46" height="46" rx="13" fill="url(#mlg1)"/>
+                <circle cx="22" cy="24" r="12.5" fill="url(#mlg2)"/>
+                <path d="M22 18.5 L22 29.5 M19 20.5 Q22 19 25 20.5 M19 24 Q22 25.5 25 24 M19 27.5 Q22 29 25 27.5" stroke="#fffbeb" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+                <circle cx="35" cy="12" r="5" fill="#34d399"/>
+              </svg>
+            </div>
+            <h3>CoinTribe</h3>
+          </div>
         <button class="modal-close" aria-label="Cerrar">&times;</button>
       </div>
 
@@ -430,7 +609,7 @@
       <!-- Demo Account Shortcut -->
       <div class="demo-account-box">
         <div class="demo-info">
-          <span>🚀 <strong>Cuenta de prueba:</strong></span>
+          <span><svg class="inline-svg anim-pulse" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> <strong>Cuenta de prueba:</strong></span>
           <code style="color: var(--emerald-400);">admin@cointribe.com</code>
         </div>
         <button type="button" class="btn-demo-fill" onclick="fillDemoCredentials()">
@@ -449,7 +628,7 @@
           <input type="password" id="login-password" class="form-input" placeholder="••••••" required autocomplete="current-password">
         </div>
         <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">
-          Ingresar a CoinTribe 🚀
+          Ingresar a CoinTribe <svg class="inline-svg anim-float" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
         </button>
       </form>
 
@@ -468,7 +647,7 @@
           <input type="password" id="register-password" class="form-input" placeholder="Crea una contraseña" required autocomplete="new-password">
         </div>
         <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">
-          Crear Mi Cuenta Gratis ✨
+          Crear Mi Cuenta Gratis <svg class="inline-svg anim-pulse" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         </button>
       </form>
     </div>
@@ -487,7 +666,7 @@
           <input type="number" step="1000" min="1000" id="ahorro-monto-input" class="form-input" placeholder="Ej: 50000" required>
         </div>
         <button type="submit" class="btn-primary" style="width: 100%;">
-          Confirmar Depósito 💰
+          Confirmar Depósito <svg class="inline-svg anim-pulse" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         </button>
       </form>
     </div>
@@ -506,7 +685,7 @@
           <input type="number" step="10000" min="10000" id="nueva-meta-input" class="form-input" placeholder="Ej: 1000000" required>
         </div>
         <button type="submit" class="btn-primary" style="width: 100%;">
-          Guardar Meta 🎯
+          Guardar Meta <svg class="inline-svg anim-pulse" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         </button>
       </form>
     </div>
@@ -525,7 +704,7 @@
           <input type="number" step="1000" min="1000" id="reto-deposito-monto" class="form-input" placeholder="Ej: 20000" required>
         </div>
         <button type="submit" class="btn-primary" style="width: 100%;">
-          Registrar en Reto 🚀
+          Registrar en Reto <svg class="inline-svg anim-float" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
         </button>
       </form>
     </div>
@@ -558,7 +737,7 @@
           <textarea id="post-cuerpo-input" class="form-textarea" rows="4" placeholder="Escribe tu experiencia o consejo para la tribu..." required></textarea>
         </div>
         <button type="submit" class="btn-primary" style="width: 100%;">
-          Publicar en el Foro 💬
+          Publicar en el Foro <svg class="inline-svg anim-pulse" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
       </form>
     </div>
@@ -577,7 +756,7 @@
           <select id="user-switch-select" class="form-select"></select>
         </div>
         <button type="submit" class="btn-primary" style="width: 100%;">
-          Activar Perfil ✨
+          Activar Perfil <svg class="inline-svg anim-pulse" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         </button>
       </form>
     </div>
