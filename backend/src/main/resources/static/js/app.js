@@ -225,6 +225,7 @@ function setupNavigation() {
 }
 
 function switchMainTab(tabId) {
+  if (tabId === 'analytics') { setTimeout(loadAnalytics, 50); }
   state.activeTab = tabId;
 
   // Update navbar buttons
@@ -1033,4 +1034,133 @@ function submitSwitchUser(e) {
     closeAllModals();
     showToast(`Usuario cambiado a: ${found.nombre}`);
   }
+}
+
+// ─── ANALYTICS TAB ───────────────────────────────────────────────────────────
+let analyticsLoaded = false;
+
+async function loadAnalytics() {
+  if (analyticsLoaded) return;
+  try {
+    const res = await fetch('/api/analytics/summary');
+    if (!res.ok) throw new Error('API error');
+    const data = await res.json();
+    renderKPIs(data.kpis);
+    renderNivelesChart(data.distribucionNiveles);
+    renderAhorroChart(data.distribucionAhorro);
+    renderTopTable(data.topAhorradores);
+    renderRetosList(data.retosPopulares);
+    renderLogrosList(data.logrosPopulares);
+    analyticsLoaded = true;
+  } catch(e) {
+    document.getElementById('analytics-kpi-grid').innerHTML =
+      '<div class="analytics-kpi-card kpi-loading" style="color:var(--rose-400);">Error al cargar analíticas. Verifica que estás autenticado.</div>';
+  }
+}
+
+function fmtMoney(n) {
+  if (n >= 1000000) return '$' + (n/1000000).toFixed(1) + 'M';
+  if (n >= 1000) return '$' + (n/1000).toFixed(0) + 'k';
+  return '$' + Math.round(n);
+}
+
+function renderKPIs(kpis) {
+  const grid = document.getElementById('analytics-kpi-grid');
+  if (!grid || !kpis) return;
+  const items = [
+    { icon: '#10b981', label: 'Usuarios activos', value: kpis.totalUsuarios, sub: 'en la Tribu', iconSvg: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>', bg: 'rgba(16,185,129,0.15)', col: '#10b981' },
+    { icon: '#f59e0b', label: 'Ahorro total', value: fmtMoney(kpis.ahorroTotalTribu), sub: 'acumulado en la tribu', iconSvg: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>', bg: 'rgba(245,158,11,0.15)', col: '#f59e0b' },
+    { icon: '#38bdf8', label: 'Ahorro promedio', value: fmtMoney(kpis.ahorroPromedio), sub: 'por usuario', iconSvg: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>', bg: 'rgba(56,189,248,0.15)', col: '#38bdf8' },
+    { icon: '#ec4899', label: '% Meta promedio', value: kpis.pctMetaPromedio + '%', sub: 'cumplimiento de metas', iconSvg: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>', bg: 'rgba(236,72,153,0.15)', col: '#ec4899' },
+    { icon: '#8b5cf6', label: 'Lecciones completadas', value: kpis.totalLecciones, sub: 'en total', iconSvg: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>', bg: 'rgba(139,92,246,0.15)', col: '#8b5cf6' },
+    { icon: '#059669', label: 'Meta cumplida', value: kpis.usuariosMetaCumplida, sub: 'usuarios llegaron al 100%', iconSvg: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>', bg: 'rgba(5,150,105,0.15)', col: '#059669' },
+  ];
+  grid.innerHTML = items.map(it => `
+    <div class="analytics-kpi-card">
+      <div class="kpi-icon" style="background:${it.bg}; color:${it.col};">${it.iconSvg}</div>
+      <div class="kpi-label">${it.label}</div>
+      <div class="kpi-value" style="color:${it.col};">${it.value}</div>
+      <div class="kpi-sub">${it.sub}</div>
+    </div>
+  `).join('');
+}
+
+function renderNivelesChart(data) {
+  const el = document.getElementById('analytics-niveles-chart');
+  if (!el || !data) return;
+  const colors = ['#6ee7b7','#38bdf8','#c084fc','#fbbf24','#f43f5e'];
+  const max = Math.max(...data.map(d => d.cantidad), 1);
+  el.innerHTML = data.map((d, i) => `
+    <div class="analytics-bar-row">
+      <div class="analytics-bar-label">Nivel ${d.nivel}</div>
+      <div class="analytics-bar-track">
+        <div class="analytics-bar-fill" style="width:${(d.cantidad/max)*100}%; background:${colors[i]};"></div>
+      </div>
+      <div class="analytics-bar-pct">${d.cantidad} <span style="color:var(--text-subtle);font-size:0.72rem;">(${d.porcentaje}%)</span></div>
+    </div>
+  `).join('');
+}
+
+function renderAhorroChart(data) {
+  const el = document.getElementById('analytics-ahorro-chart');
+  if (!el || !data) return;
+  const colors = ['#f43f5e','#f59e0b','#38bdf8','#10b981','#8b5cf6'];
+  const max = Math.max(...data.map(d => d.cantidad), 1);
+  el.innerHTML = data.map((d, i) => `
+    <div class="analytics-bar-row">
+      <div class="analytics-bar-label" style="font-size:0.75rem;">${d.rango}</div>
+      <div class="analytics-bar-track">
+        <div class="analytics-bar-fill" style="width:${(d.cantidad/max)*100}%; background:${colors[i]};"></div>
+      </div>
+      <div class="analytics-bar-pct">${d.cantidad} <span style="color:var(--text-subtle);font-size:0.72rem;">(${d.porcentaje}%)</span></div>
+    </div>
+  `).join('');
+}
+
+function renderTopTable(data) {
+  const tbody = document.getElementById('analytics-top-tbody');
+  if (!tbody || !data) return;
+  const medals = ['🥇','🥈','🥉'];
+  tbody.innerHTML = data.map((u, i) => {
+    const pct = Math.min(u.pctMeta, 100);
+    const medal = i < 3 ? `<span class="analytics-rank-medal" style="background:rgba(245,158,11,0.2);color:#fbbf24;">${medals[i]}</span>` : `<span class="analytics-rank-medal" style="background:rgba(255,255,255,0.05);color:var(--text-muted);">${i+1}</span>`;
+    return `<tr>
+      <td>${medal}</td>
+      <td style="font-weight:700; color:var(--text-primary);">${u.nombre}</td>
+      <td><span class="card-tag tag-bases" style="margin:0;font-size:0.72rem;">Niv. ${u.nivel}</span></td>
+      <td style="color:var(--gold-400);font-weight:700;">${fmtMoney(u.ahorro)}</td>
+      <td style="color:var(--text-muted);">${fmtMoney(u.meta)}</td>
+      <td style="font-weight:700; color:${pct>=100?'#10b981':pct>=50?'#f59e0b':'#f43f5e'};">${u.pctMeta}%</td>
+      <td>
+        <div class="analytics-mini-bar">
+          <div class="analytics-mini-fill" style="width:${pct}%; background:${pct>=100?'linear-gradient(90deg,#10b981,#6ee7b7)':pct>=50?'linear-gradient(90deg,#f59e0b,#fde68a)':'linear-gradient(90deg,#f43f5e,#fda4af)'};"></div>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function renderRetosList(data) {
+  const el = document.getElementById('analytics-retos-list');
+  if (!el || !data) return;
+  el.innerHTML = data.slice(0,8).map(r => `
+    <div class="analytics-list-item">
+      <div class="analytics-list-name">${r.titulo}</div>
+      <div style="text-align:right;">
+        <div class="analytics-list-count">${r.participantes} participantes</div>
+        <div style="font-size:0.75rem;color:var(--text-subtle);">${r.completados} completados</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderLogrosList(data) {
+  const el = document.getElementById('analytics-logros-list');
+  if (!el || !data) return;
+  el.innerHTML = data.slice(0,8).map(l => `
+    <div class="analytics-list-item">
+      <div class="analytics-list-name">${l.nombre}</div>
+      <div class="analytics-list-count">${l.desbloqueos} <span style="font-size:0.75rem;color:var(--text-subtle);font-weight:400;">(${l.porcentaje}%)</span></div>
+    </div>
+  `).join('');
 }

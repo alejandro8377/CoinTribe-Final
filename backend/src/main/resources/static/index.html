@@ -225,6 +225,40 @@
           </span>
           Mercado
         </button>
+
+        <button class="nav-btn" data-target="analytics" id="nav-btn-analytics">
+          <span class="nav-pure-3d pure-3d-analytics">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="anlG1" x1="3" y1="28" x2="10" y2="12"><stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="#c7d2fe"/></linearGradient>
+                <linearGradient id="anlG2" x1="12" y1="28" x2="19" y2="6"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#bae6fd"/></linearGradient>
+                <linearGradient id="anlG3" x1="21" y1="28" x2="28" y2="10"><stop offset="0%" stop-color="#34d399"/><stop offset="100%" stop-color="#a7f3d0"/></linearGradient>
+                <radialGradient id="anlGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#f0abfc" stop-opacity="0.9"/><stop offset="100%" stop-color="#a855f7" stop-opacity="0"/></radialGradient>
+              </defs>
+              <!-- Glow halo -->
+              <circle cx="16" cy="16" r="14" fill="url(#anlGlow)" opacity="0.35"/>
+              <!-- Bar 1 -->
+              <polygon points="7,28 4,30 10,30 10,28" fill="url(#anlG1)"/>
+              <polygon points="4,14 7,12 7,28 4,28" fill="#6366f1"/>
+              <polygon points="7,12 10,14 10,28 7,28" fill="#4f46e5"/>
+              <polygon points="4,14 7,12 10,14 7,16" fill="url(#anlG1)"/>
+              <!-- Bar 2 -->
+              <polygon points="16,28 13,30 19,30 19,28" fill="url(#anlG2)"/>
+              <polygon points="13,8 16,6 16,28 13,28" fill="#0284c7"/>
+              <polygon points="16,6 19,8 19,28 16,28" fill="#0369a1"/>
+              <polygon points="13,8 16,6 19,8 16,10" fill="url(#anlG2)"/>
+              <!-- Bar 3 -->
+              <polygon points="25,28 22,30 28,30 28,28" fill="url(#anlG3)"/>
+              <polygon points="22,13 25,11 25,28 22,28" fill="#059669"/>
+              <polygon points="25,11 28,13 28,28 25,28" fill="#047857"/>
+              <polygon points="22,13 25,11 28,13 25,15" fill="url(#anlG3)"/>
+              <!-- Trend line -->
+              <polyline points="5,20 10,16 16,10 22,14 28,8" stroke="#f0abfc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none" class="analytics-trend-line"/>
+              <circle cx="28" cy="8" r="1.8" fill="#e879f9" class="analytics-pulse-dot"/>
+            </svg>
+          </span>
+          Analíticas
+        </button>
       </nav>
 
       <!-- 3. RIGHT: USER PROFILE & ACTIONS -->
@@ -767,5 +801,99 @@
 
   <!-- App Script -->
   <script src="js/app.js"></script>
+
+  <!-- =========================================================================
+       PESTAÑA: ANALÍTICAS
+       ========================================================================= -->
+  <section class="main-tab-view" id="view-analytics">
+    <div class="page-title-banner">
+      <div class="card-tag tag-bases">
+        <svg class="inline-svg anim-pulse" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        ANALÍTICAS DE COMUNIDAD
+      </div>
+      <h2 class="analytics-main-title">Panel de Métricas <span class="gradient-text">CoinTribe</span></h2>
+      <p style="color:var(--text-muted); font-size:0.95rem;">Datos en tiempo real de usuarios, ahorros y actividad de la tribu.</p>
+    </div>
+
+    <div class="container-main" style="padding-bottom: 60px;">
+
+      <!-- KPI CARDS -->
+      <div class="analytics-kpi-grid" id="analytics-kpi-grid">
+        <div class="analytics-kpi-card kpi-loading">
+          <div class="kpi-spinner"></div>
+          <span>Cargando métricas...</span>
+        </div>
+      </div>
+
+      <!-- ROW: Distribución niveles + Distribución ahorro -->
+      <div class="analytics-two-col" style="margin-top:32px;">
+        <!-- Niveles -->
+        <div class="custom-card analytics-chart-card">
+          <div class="card-tag tag-bases" style="margin-bottom:16px;">
+            <svg class="inline-svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Distribución por Nivel
+          </div>
+          <div id="analytics-niveles-chart" class="analytics-bar-chart"></div>
+        </div>
+
+        <!-- Ahorro -->
+        <div class="custom-card analytics-chart-card">
+          <div class="card-tag tag-ahorro" style="margin-bottom:16px;">
+            <svg class="inline-svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            Distribución de Ahorro
+          </div>
+          <div id="analytics-ahorro-chart" class="analytics-bar-chart"></div>
+        </div>
+      </div>
+
+      <!-- TOP AHORRADORES -->
+      <div class="custom-card" style="margin-top:28px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+          <div>
+            <div class="card-tag tag-logro" style="margin-bottom:8px;">
+              <svg class="inline-svg anim-pulse" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              TOP AHORRADORES
+            </div>
+            <h3 style="font-size:1.3rem;">Los 10 mejores ahorradores de la Tribu</h3>
+          </div>
+          <a href="/api/analytics/pdf" target="_blank" class="btn-secondary btn-sm" style="display:inline-flex; align-items:center; gap:6px; text-decoration:none;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Descargar PDF
+          </a>
+        </div>
+        <div class="analytics-table-wrap">
+          <table class="analytics-table" id="analytics-top-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Usuario</th>
+                <th>Nivel</th>
+                <th>Ahorro</th>
+                <th>Meta</th>
+                <th>% Meta</th>
+                <th>Progreso</th>
+              </tr>
+            </thead>
+            <tbody id="analytics-top-tbody">
+              <tr><td colspan="7" style="text-align:center; padding:24px; color:var(--text-muted);">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- RETOS POPULARES -->
+      <div class="analytics-two-col" style="margin-top:28px;">
+        <div class="custom-card">
+          <div class="card-tag tag-ahorro" style="margin-bottom:16px;">Retos Más Populares</div>
+          <div id="analytics-retos-list"></div>
+        </div>
+        <div class="custom-card">
+          <div class="card-tag tag-logro" style="margin-bottom:16px;">Logros Más Desbloqueados</div>
+          <div id="analytics-logros-list"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
 </body>
 </html>
