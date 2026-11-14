@@ -2890,3 +2890,249 @@ body.light-theme .brand-info h1 {
   font-size: clamp(1.5rem, 3vw, 2.2rem);
   font-weight: 800; margin-bottom: 8px;
 }
+
+
+/* === CESDE Analytics 15 Questions Styles === */
+ DE DATOS (CESDE)
+   ========================================================================== */
+.analytics-hero-banner {
+  background: linear-gradient(135deg, rgba(15, 118, 110, 0.25) 0%, rgba(15, 23, 42, 0.85) 100%);
+  border: 1px solid rgba(13, 148, 136, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.analytics-hero-text h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 8px 0 10px 0;
+  background: linear-gradient(135deg, #fff, #5eead4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.analytics-hero-text p {
+  color: var(--text-muted);
+  max-width: 650px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.analytics-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.analytics-kpis-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 18px;
+  margin-bottom: 36px;
+}
+
+.analytics-kpi-card {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.analytics-kpi-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(13, 148, 136, 0.5);
+}
+
+.analytics-kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--emerald-400), var(--indigo-400));
+}
+
+.analytics-kpi-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.analytics-kpi-val {
+  font-size: 1.85rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.analytics-kpi-sub {
+  font-size: 0.75rem;
+  color: var(--emerald-400);
+  margin-top: 6px;
+}
+
+/* Filtros por bloques */
+.analytics-filter-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  margin-bottom: 28px;
+  scrollbar-width: thin;
+}
+
+.analytics-filter-btn {
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+  padding: 8px 16px;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.analytics-filter-btn:hover,
+.analytics-filter-btn.active {
+  background: var(--emerald-500);
+  color: #042f2e;
+  border-color: var(--emerald-400);
+  font-weight: 700;
+}
+
+/* Preguntas Grid */
+.analytics-questions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 600px) {
+  .analytics-questions-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.analytics-card {
+  background: rgba(24, 33, 49, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.analytics-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.analytics-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.analytics-card-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 6px 0;
+}
+
+.analytics-question-text {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.analytics-sql-box {
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(13, 148, 136, 0.25);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.75rem;
+  color: #5eead4;
+  overflow-x: auto;
+}
+
+.analytics-img-wrapper {
+  background: #0f172a;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  text-align: center;
+}
+
+.analytics-img-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.analytics-evidence-box {
+  background: rgba(15, 23, 42, 0.6);
+  border-left: 3px solid var(--emerald-400);
+  border-radius: 4px;
+  padding: 12px;
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.analytics-evidence-box strong {
+  color: var(--emerald-400);
+}
+
+.analytics-insight-box {
+  background: rgba(15, 23, 42, 0.6);
+  border-left: 3px solid var(--indigo-400);
+  border-radius: 4px;
+  padding: 12px;
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.analytics-insight-box strong {
+  color: #a5b4fc;
+}
+
+/* Conclusiones Box */
+.analytics-conclusions-card {
+  background: linear-gradient(135deg, rgba(13, 148, 136, 0.15) 0%, rgba(30, 41, 59, 0.9) 100%);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  margin-bottom: 40px;
+}
+
+.analytics-conclusions-card h3 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #fff;
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
