@@ -1,15 +1,12 @@
-# Blueprint opcional para Render (https://render.com/docs/blueprint-spec)
-# También puedes crear el servicio manualmente desde el dashboard.
+# Blueprint para Render (https://render.com/docs/blueprint-spec)
 
 services:
   - type: web
     name: cointribe-api
-    runtime: java
+    runtime: docker
     plan: free
-    rootDir: backend
-    buildCommand: chmod +x mvnw && ./mvnw clean package -DskipTests
-    startCommand: java -jar target/backend-0.0.1-SNAPSHOT.jar
-    healthCheckPath: /api/users
+    dockerfilePath: backend/Dockerfile
+    dockerContext: backend
     envVars:
       - key: SPRING_DATASOURCE_URL
         sync: false

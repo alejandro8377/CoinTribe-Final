@@ -1,0 +1,8 @@
+id,codigo,icono,nombre,pista,ahorro_minimo,lecciones_minimas,retos_minimos,created_at,updated_at
+1,primer-deposito,🪙,Primer depósito,Registra tu primer depósito,1.0,,,2026-11-07 01:10:17.127548,2026-11-07 01:10:17.127548
+2,mitad-meta,🌱,Vas por la mitad,Llega al 50% de tu meta del mes,250000.0,,,2026-11-07 01:10:17.127548,2026-11-07 01:10:17.127548
+3,tres-retos,🤝,Tribu activa,Únete a tres retos,,,3.0,2026-11-07 01:10:17.127548,2026-11-07 01:10:17.127548
+4,meta-cumplida,🏆,Meta del mes,Completa el 100% de tu meta,500000.0,,,2026-11-07 01:10:17.127548,2026-11-07 01:10:17.127548
+5,estudiante,📚,Estudiante constante,Completa al menos 5 lecciones,,5.0,,2026-11-07 01:10:17.127548,2026-11-07 01:10:17.127548
+6,ahorrador-pro,💎,Ahorrador Pro,Supera los $1.000.000 ahorrados,1000000.0,,,2026-11-07 01:10:17.127548,2026-11-07 01:10:17.127548
+7,nivel-5,⭐,Nivel 5 alcanzado,Llega al nivel 5,,,,2026-11-07 01:10:17.127548,2026-11-07 01:10:17.127548

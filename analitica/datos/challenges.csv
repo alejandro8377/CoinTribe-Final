@@ -1,0 +1,6 @@
+id,titulo,descripcion,meta_ahorro,duracion_dias,activo,created_at,updated_at
+1,Ahorra $50.000 esta semana,Guarda al menos $50.000 en 7 días evitando gastos hormiga.,50000.0,7,True,2026-11-07 01:10:17.127548,2026-11-07 01:10:17.127548
+2,Mes sin delivery,Cocina en casa durante 30 días y ahorra lo que gastarías en domicilio.,150000.0,30,True,2026-11-07 01:10:17.127548,2026-11-07 01:10:17.127548
+3,Fondo de emergencia inicial,Reúne el equivalente a un mes de gastos básicos.,800000.0,90,True,2026-11-07 01:10:17.127548,2026-11-07 01:10:17.127548
+4,Ahorra $100.000 en 15 días,Meta intermedia para fortalecer el hábito de ahorro.,100000.0,15,True,2026-11-07 01:10:17.127548,2026-11-07 01:10:17.127548
+5,Reto 52 semanas,Versión adaptada: ahorra cantidades crecientes cada semana.,300000.0,52,True,2026-11-07 01:10:17.127548,2026-11-07 01:10:17.127548

@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "outputDirectory": "backend/src/main/resources/static",
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/api/:match*",
+      "destination": "https://cointribe-api.onrender.com/api/:match*"
+    }
+  ]
+}
+

@@ -18,3 +18,5 @@ coverage
 .neon
 node_modules/
 dist/
+mvn-output.txt
+backend/target/

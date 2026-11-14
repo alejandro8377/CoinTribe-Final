@@ -16,11 +16,11 @@ Proyecto **académico / educativo**. Las contraseñas y credenciales se muestran
 4. [Credenciales (todo en claro)](#credenciales-todo-en-claro)
 5. [Cómo ejecutar en local](#cómo-ejecutar-en-local)
 6. [Datos de ejemplo (seed)](#datos-de-ejemplo-seed)
-7. [Endpoints — CRUD completo](#endpoints--crud-completo)
-8. [Ejemplos de requests (JSON)](#ejemplos-de-requests-json)
-9. [Reglas de negocio](#reglas-de-negocio)
-10. [Despliegue en Render](#despliegue-en-render)
-11. [Neon / PostgreSQL (producción)](#neon--postgresql-producción)
+7. [Seed masivo + 15 preguntas analíticas](#seed-masivo--15-preguntas-analíticas)
+8. [Endpoints — CRUD completo](#endpoints--crud-completo)
+9. [Ejemplos de requests (JSON)](#ejemplos-de-requests-json)
+10. [Reglas de negocio](#reglas-de-negocio)
+11. [Despliegue (Neon + Render / Vercel)](#despliegue-neon--render--vercel)
 12. [Equipo y contacto](#equipo-y-contacto)
 
 ---
@@ -41,7 +41,7 @@ CoinTribe ayuda a mejorar hábitos de dinero mediante:
 
 | Capa | Tecnología |
 |------|------------|
-| Lenguaje | Java 25 (LTS) |
+| Lenguaje | Java 21 (LTS) |
 | Framework | Spring Boot 4.x |
 | Persistencia | Spring Data JPA + Hibernate |
 | Base de datos local | H2 en memoria |
@@ -59,20 +59,24 @@ CoinTribe ayuda a mejorar hábitos de dinero mediante:
 CoinTribe/
 ├── README.md                 ← Este archivo
 ├── .gitignore
-├── .neon                     ← Enlace a proyecto Neon (opcional)
-├── neon.ts                   ← Config Neon CLI (opcional)
-├── package.json              ← Mínimo para Neon CLI
+├── .env.example
+├── docs/
+│   └── PREGUNTAS_ANALITICAS_COINTRIBE.md   ← 15 preguntas adaptadas + SQL
+├── sql/
+│   └── seed_masivo.sql                     ← 35 usuarios + relaciones
+├── postman/
+├── render.yaml
 └── backend/                  ← Aplicación Spring Boot
     ├── pom.xml
     ├── mvnw / mvnw.cmd
     └── src/main/java/com/cointribe/backend/
         ├── BackendApplication.java
-        ├── config/DataInitializer.java   ← Seed de datos
+        ├── config/DataInitializer.java   ← Seed básico (local H2)
         ├── controllers/                  ← REST
         ├── services/                     ← Reglas de negocio
         ├── models/                       ← Entidades JPA
         ├── repositories/                 ← Spring Data
-        └── exceptions/                   ← BusinessException + handler
+        └── exceptions/
 ```
 
 Entidades principales: `User`, `Course`, `Challenge`, `UserChallenge`, `Post`, `Achievement`, `UserAchievement`, `Coin`.
@@ -115,6 +119,7 @@ Content-Type: application/json
 | Driver | `org.h2.Driver` |
 
 En la consola H2 usa la misma JDBC URL, usuario `sa` y contraseña en blanco.
+La consola viene desactivada; para usarla en local arranca con `SPRING_H2_CONSOLE_ENABLED=true`.
 
 ### Servidor local
 
@@ -137,7 +142,7 @@ En la consola H2 usa la misma JDBC URL, usuario `sa` y contraseña en blanco.
 
 ### Requisitos
 
-- Java 25 o superior
+- Java 21 o superior
 - Acceso a internet la primera vez (el Maven Wrapper descarga Maven y las dependencias; no necesitas instalar Maven globalmente)
 
 ### Pasos
@@ -436,7 +441,7 @@ Validation responden HTTP 400 con detalles por campo.
 ```text
 PORT=10000
 SPRING_DATASOURCE_URL=jdbc:postgresql://HOST:5432/neondb?sslmode=require
-SPRING_DATASOURCE_USERNAME=neondb_owner
+SPRING_DATASOURCE_USERNAME=tu_usuario
 SPRING_DATASOURCE_PASSWORD=tu_password_de_neon_o_render
 SPRING_JPA_HIBERNATE_DDL_AUTO=update
 SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
@@ -495,6 +500,106 @@ spring.jpa.database-platform=${SPRING_JPA_DATABASE_PLATFORM:org.hibernate.dialec
 spring.jpa.hibernate.ddl-auto=${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
 ```
 
+
+---
+
+## Seed masivo + 15 preguntas analíticas
+
+Para el análisis de datos del proyecto (banco de preguntas CESDE) se incluye:
+
+| Archivo | Descripción |
+|---------|-------------|
+| `sql/seed_masivo.sql` | Script SQL listo para Neon/Supabase con **35 usuarios**, retos, logros, posts y relaciones |
+| `docs/PREGUNTAS_ANALITICAS_COINTRIBE.md` | **15 preguntas analíticas** adaptadas a CoinTribe (tendencias, composición, promedios, rankings, distribuciones, relaciones y reporte final) |
+
+### Cómo cargar los datos en Neon
+
+1. Crea un proyecto en [Neon](https://neon.tech) y copia la connection string.
+2. Abre el **SQL Editor** de Neon.
+3. Pega y ejecuta el contenido de `sql/seed_masivo.sql`.
+4. Verifica:
+
+```sql
+SELECT COUNT(*) FROM users;                    -- debe ser >= 35
+SELECT nivel, COUNT(*) FROM users GROUP BY nivel ORDER BY nivel;
+SELECT COUNT(*) FROM user_challenges;
+SELECT COUNT(*) FROM user_achievements;
+```
+
+### Las 15 preguntas (resumen)
+
+1. Evolución de usuarios nuevos por mes  
+2. Ahorro total/promedio según mes de registro  
+3. Distribución de usuarios por nivel (dona)  
+4. Participación de cada logro desbloqueado  
+5. Distribución por cantidad de retos aceptados  
+6. Ahorro promedio por nivel  
+7. % de avance hacia la meta por nivel  
+8. Top 10 usuarios con mayor ahorro  
+9. Retos más populares  
+10. Usuarios con más logros  
+11. Distribución del ahorro (histogramas por rangos)  
+12. Distribución de lecciones completadas  
+13. Relación nivel vs ahorro (scatter)  
+14. Relación lecciones vs retos aceptados  
+15. KPIs generales + 3 hallazgos + recomendación  
+
+Cada pregunta incluye el **SQL de cálculo** y el tipo de gráfica recomendada. Ver el documento completo en `docs/PREGUNTAS_ANALITICAS_COINTRIBE.md`.
+
+---
+
+## Despliegue (Neon + Render / Vercel)
+
+### 1. Base de datos (Neon)
+
+La base de datos PostgreSQL está creada en **Neon**:
+- **Connection string:** `postgresql://USUARIO:PASSWORD@HOST/neondb?sslmode=require` (se obtiene en el panel de Neon; **no la subas al repositorio**)
+- **Tablas:** Definidas en `sql/schema.sql` (creadas y validadas con 8 tablas principales).
+- **Datos iniciales:** Cargados mediante `sql/seed_masivo.sql` (35 usuarios, retos, logros, cursos, publicaciones y relaciones).
+
+### 2. Backend (Render — Requerido para Spring Boot)
+
+El backend de CoinTribe está desarrollado en **Java 21 (LTS) con Spring Boot 4.x**.  
+> ⚠️ **Importante sobre Vercel vs Render:**  
+> **Vercel NO ejecuta aplicaciones Java / Spring Boot.** Vercel es una plataforma serverless orientada a frontend (Next.js, HTML/JS) y funciones Node/Python.  
+> Por esta razón, el backend del API **debe alojarse en Render** (o Railway / Docker).
+
+#### Despliegue en Render (1 Clic con Blueprint):
+1. Ve a [dashboard.render.com](https://dashboard.render.com) > **New +** > **Blueprint**.
+2. Conecta el repositorio: `https://github.com/alejandro8377/CoinTribe-Final`.
+3. Render detectará automáticamente `render.yaml` y preconfigurará el servicio web con Java y las credenciales de Neon.
+4. O si lo creas manualmente como **Web Service**:
+   - **Root Directory:** `backend`
+   - **Environment:** `Java`
+   - **Build Command:** `chmod +x mvnw && ./mvnw clean package -DskipTests`
+   - **Start Command:** `java -jar target/backend-0.0.1-SNAPSHOT.jar`
+   - **Health Check Path:** `/api/users`
+   - **Variables de entorno:**
+     ```
+     SPRING_DATASOURCE_URL=jdbc:postgresql://HOST/neondb?sslmode=require
+     SPRING_DATASOURCE_USERNAME=tu_usuario
+     SPRING_DATASOURCE_PASSWORD=tu_password_de_neon
+     SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+     SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
+     SPRING_JPA_HIBERNATE_DDL_AUTO=update
+     SPRING_JPA_SHOW_SQL=false
+     ```
+
+### 3. Frontend en Vercel (Opcional / Desacoplado)
+
+- **Opción A (Recomendada y más simple):** Render ya sirve tanto la API `/api/*` como el frontend estático completo de forma automática en una sola URL.
+- **Opción B (Frontend en Vercel + Backend en Render):**
+  1. Conecta el repositorio a [Vercel](https://vercel.com).
+  2. El archivo `vercel.json` incluido ya está configurado para publicar la carpeta `backend/src/main/resources/static` y redirigir las peticiones de `/api/*` al backend en Render.
+  3. En `vercel.json`, actualiza la URL de destino de Render con la que te asigne Render al crear el backend.
+
+### 4. Variables locales (`.env`)
+
+El archivo `.env.example` y `application.properties` ya vienen preconfigurados con la base de datos de Neon. Para arrancar en local:
+```bash
+cd backend
+./mvnw.cmd spring-boot:run
+```
 
 ---
 
