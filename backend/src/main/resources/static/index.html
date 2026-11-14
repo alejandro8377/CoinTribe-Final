@@ -870,6 +870,38 @@
         </div>
       </div>
 
+      
+      <!-- BARRAS DE PROGRESO DE ANALÍTICAS BASES (DISTRIBUCIÓN) -->
+      <div class="analytics-two-col" style="margin-top: 24px; margin-bottom: 28px;">
+        <!-- Distribución por Nivel -->
+        <div class="analytics-card" style="padding: 22px;">
+          <div class="analytics-card-header" style="margin-bottom: 14px;">
+            <div>
+              <span class="card-tag tag-bases" style="margin-bottom: 6px;">
+                <svg class="inline-svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                DISTRIBUCIÓN POR NIVEL
+              </span>
+              <h4 style="font-size: 1.1rem; font-weight: 800; color: #fff; margin: 0;">Usuarios según Rango de Nivel</h4>
+            </div>
+          </div>
+          <div id="analytics-niveles-chart" class="analytics-bar-chart"></div>
+        </div>
+
+        <!-- Distribución de Ahorro -->
+        <div class="analytics-card" style="padding: 22px;">
+          <div class="analytics-card-header" style="margin-bottom: 14px;">
+            <div>
+              <span class="card-tag tag-ahorro" style="margin-bottom: 6px;">
+                <svg class="inline-svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                DISTRIBUCIÓN DE AHORRO
+              </span>
+              <h4 style="font-size: 1.1rem; font-weight: 800; color: #fff; margin: 0;">Volumen de Ahorro por Tramos</h4>
+            </div>
+          </div>
+          <div id="analytics-ahorro-chart" class="analytics-bar-chart"></div>
+        </div>
+      </div>
+
       <!-- BARRA DE FILTROS POR BLOQUE CESDE -->
       <div class="analytics-filter-bar">
         <button class="analytics-filter-btn active" onclick="filterAnalytics('todos', this)">Todos los Bloques (15)</button>

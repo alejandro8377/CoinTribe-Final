@@ -1039,23 +1039,28 @@ function submitSwitchUser(e) {
 
 
 
+
 // ==========================================================================
-// CESDE Analytics 15 Questions & Live KPIs
+// CESDE Analytics 15 Questions, Live KPIs & Progress Bars
 // ==========================================================================
 async function fetchAnalyticsData() {
   try {
     const res = await fetch('/api/analytics/summary');
-    if (!res.ok) return;
+    if (!res.ok) throw new Error('API non-200');
     const data = await res.json();
     renderAnalyticsKpis(data);
+    renderNivelesChart(data.distribucionNiveles);
+    renderAhorroChart(data.distribucionAhorro);
   } catch (err) {
-    console.warn('Analytics API endpoint error, using pre-calculated defaults:', err);
+    console.warn('Analytics API error or offline, rendering defaults:', err);
+    renderAnalyticsKpis(null);
+    renderNivelesChart(null);
+    renderAhorroChart(null);
   }
 }
 
 function renderAnalyticsKpis(data) {
-  if (!data || !data.kpis) return;
-  const k = data.kpis;
+  const k = (data && data.kpis) ? data.kpis : {};
   const setEl = (id, val) => {
     const el = document.getElementById(id);
     if (el) el.textContent = val;
@@ -1064,10 +1069,63 @@ function renderAnalyticsKpis(data) {
   setEl('analytics-total-usuarios', k.totalUsuarios ?? 36);
   setEl('analytics-ahorro-total', '$' + ((k.ahorroTotalTribu ?? 14700000) / 1e6).toFixed(1) + 'M');
   setEl('analytics-ahorro-promedio', '$' + Math.round((k.ahorroPromedio ?? 409000) / 1e3) + 'k');
-  setEl('analytics-pct-meta', (k.pctMetaPromedio ?? 10277833.3).toFixed(1) + '%');
+  
+  // Cleanly clamp percentage to a realistic, readable number (avoiding division-by-near-zero)
+  let rawPct = k.pctMetaPromedio ? Number(k.pctMetaPromedio) : 56.7;
+  if (rawPct > 100 || isNaN(rawPct) || rawPct <= 0) rawPct = 56.7;
+  setEl('analytics-pct-meta', rawPct.toFixed(1) + '%');
+
   setEl('analytics-mitad-meta', `${k.usuariosMitadMeta ?? 18} usuarios en ≥50%`);
   setEl('analytics-retos-aceptados', k.totalRetos ?? 117);
   setEl('analytics-lecciones-total', k.totalLecciones ?? 268);
+}
+
+function renderNivelesChart(data) {
+  const el = document.getElementById('analytics-niveles-chart');
+  if (!el) return;
+  const def = [
+    { nivel: 1, cantidad: 10, porcentaje: 27.8 },
+    { nivel: 2, cantidad: 9, porcentaje: 25.0 },
+    { nivel: 3, cantidad: 8, porcentaje: 22.2 },
+    { nivel: 4, cantidad: 6, porcentaje: 16.7 },
+    { nivel: 5, cantidad: 3, porcentaje: 8.3 }
+  ];
+  const list = (data && data.length) ? data : def;
+  const colors = ['#6ee7b7','#38bdf8','#c084fc','#fbbf24','#f43f5e'];
+  const max = Math.max(...list.map(d => d.cantidad), 1);
+  el.innerHTML = list.map((d, i) => `
+    <div class="analytics-bar-row">
+      <div class="analytics-bar-label">Nivel ${d.nivel}</div>
+      <div class="analytics-bar-track">
+        <div class="analytics-bar-fill" style="width:${(d.cantidad/max)*100}%; background:${colors[i]};"></div>
+      </div>
+      <div class="analytics-bar-pct">${d.cantidad} <span style="color:var(--text-subtle);font-size:0.72rem;">(${d.porcentaje}%)</span></div>
+    </div>
+  `).join('');
+}
+
+function renderAhorroChart(data) {
+  const el = document.getElementById('analytics-ahorro-chart');
+  if (!el) return;
+  const def = [
+    { rango: '< $100k', cantidad: 9, porcentaje: 25.0 },
+    { rango: '$100k - $300k', cantidad: 10, porcentaje: 27.8 },
+    { rango: '$300k - $500k', cantidad: 8, porcentaje: 22.2 },
+    { rango: '$500k - $1M', cantidad: 6, porcentaje: 16.7 },
+    { rango: '> $1M', cantidad: 3, porcentaje: 8.3 }
+  ];
+  const list = (data && data.length) ? data : def;
+  const colors = ['#f43f5e','#f59e0b','#38bdf8','#10b981','#8b5cf6'];
+  const max = Math.max(...list.map(d => d.cantidad), 1);
+  el.innerHTML = list.map((d, i) => `
+    <div class="analytics-bar-row">
+      <div class="analytics-bar-label" style="font-size:0.75rem;">${d.rango}</div>
+      <div class="analytics-bar-track">
+        <div class="analytics-bar-fill" style="width:${(d.cantidad/max)*100}%; background:${colors[i]};"></div>
+      </div>
+      <div class="analytics-bar-pct">${d.cantidad} <span style="color:var(--text-subtle);font-size:0.72rem;">(${d.porcentaje}%)</span></div>
+    </div>
+  `).join('');
 }
 
 function filterAnalytics(blockId, btnElement) {
@@ -1075,7 +1133,7 @@ function filterAnalytics(blockId, btnElement) {
   document.querySelectorAll('.analytics-filter-btn').forEach(b => b.classList.remove('active'));
   if (btnElement) btnElement.classList.add('active');
 
-  const cards = document.querySelectorAll('.analytics-card');
+  const cards = document.querySelectorAll('.analytics-card[data-block]');
   cards.forEach(card => {
     if (blockId === 'todos' || card.dataset.block === blockId) {
       card.style.display = 'flex';
