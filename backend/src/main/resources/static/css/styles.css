@@ -3136,3 +3136,67 @@ body.light-theme .brand-info h1 {
   margin-bottom: 16px;
 }
 
+
+
+/* ==========================================================================
+   3D Analytics Nav Icon Keyframes & Fluid 3D Motion
+   ========================================================================== */
+.pure-3d-analytics {
+  animation: pure3DAnalyticsMotion 3.8s ease-in-out infinite;
+}
+
+@keyframes pure3DAnalyticsMotion {
+  0%, 100% {
+    transform: perspective(700px) rotateX(15deg) rotateY(-10deg) translateY(0);
+    filter: drop-shadow(0 4px 12px rgba(129, 140, 248, 0.45));
+  }
+  50% {
+    transform: perspective(700px) rotateX(8deg) rotateY(14deg) translateY(-4.5px) scale(1.1);
+    filter: drop-shadow(0 8px 22px rgba(129, 140, 248, 0.85)) drop-shadow(0 0 16px #38bdf8);
+  }
+}
+
+.anl-iso-bar-1 {
+  transform-origin: 7px 28px;
+  animation: anlBarDance1 1.5s ease-in-out infinite;
+}
+.anl-iso-bar-2 {
+  transform-origin: 16px 28px;
+  animation: anlBarDance2 1.2s ease-in-out 0.25s infinite;
+}
+.anl-iso-bar-3 {
+  transform-origin: 25px 28px;
+  animation: anlBarDance3 1.7s ease-in-out 0.45s infinite;
+}
+
+@keyframes anlBarDance1 {
+  0%, 100% { transform: scaleY(1); }
+  50%       { transform: scaleY(1.22); }
+}
+@keyframes anlBarDance2 {
+  0%, 100% { transform: scaleY(1); }
+  50%       { transform: scaleY(1.3); }
+}
+@keyframes anlBarDance3 {
+  0%, 100% { transform: scaleY(1); }
+  50%       { transform: scaleY(1.18); }
+}
+
+.anl-glow-halo {
+  animation: anlHaloPulse 2.8s ease-in-out infinite;
+}
+@keyframes anlHaloPulse {
+  0%, 100% { opacity: 0.25; transform: scale(0.92); transform-origin: 16px 16px; }
+  50%       { opacity: 0.7; transform: scale(1.18); transform-origin: 16px 16px; }
+}
+
+/* Hover Turbo Reaction on Analytics 3D Icon */
+.nav-btn:hover .pure-3d-analytics svg {
+  transform: perspective(700px) rotateX(0deg) rotateY(0deg) translateY(-7px) scale(1.35) !important;
+  filter: drop-shadow(0 12px 24px rgba(255,255,255,0.75)) drop-shadow(0 0 20px #818cf8) !important;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nav-btn.active .pure-3d-analytics svg {
+  filter: drop-shadow(0 0 14px rgba(255,255,255,0.9)) drop-shadow(0 0 22px #818cf8);
+}

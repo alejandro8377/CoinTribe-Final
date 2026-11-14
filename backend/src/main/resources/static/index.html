@@ -233,28 +233,39 @@
                 <linearGradient id="anlG1" x1="3" y1="28" x2="10" y2="12"><stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="#c7d2fe"/></linearGradient>
                 <linearGradient id="anlG2" x1="12" y1="28" x2="19" y2="6"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#bae6fd"/></linearGradient>
                 <linearGradient id="anlG3" x1="21" y1="28" x2="28" y2="10"><stop offset="0%" stop-color="#34d399"/><stop offset="100%" stop-color="#a7f3d0"/></linearGradient>
-                <radialGradient id="anlGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#f0abfc" stop-opacity="0.9"/><stop offset="100%" stop-color="#a855f7" stop-opacity="0"/></radialGradient>
+                <radialGradient id="anlGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#f0abfc" stop-opacity="0.95"/><stop offset="100%" stop-color="#a855f7" stop-opacity="0"/></radialGradient>
               </defs>
-              <!-- Glow halo -->
-              <circle cx="16" cy="16" r="14" fill="url(#anlGlow)" opacity="0.35"/>
-              <!-- Bar 1 -->
-              <polygon points="7,28 4,30 10,30 10,28" fill="url(#anlG1)"/>
-              <polygon points="4,14 7,12 7,28 4,28" fill="#6366f1"/>
-              <polygon points="7,12 10,14 10,28 7,28" fill="#4f46e5"/>
-              <polygon points="4,14 7,12 10,14 7,16" fill="url(#anlG1)"/>
-              <!-- Bar 2 -->
-              <polygon points="16,28 13,30 19,30 19,28" fill="url(#anlG2)"/>
-              <polygon points="13,8 16,6 16,28 13,28" fill="#0284c7"/>
-              <polygon points="16,6 19,8 19,28 16,28" fill="#0369a1"/>
-              <polygon points="13,8 16,6 19,8 16,10" fill="url(#anlG2)"/>
-              <!-- Bar 3 -->
-              <polygon points="25,28 22,30 28,30 28,28" fill="url(#anlG3)"/>
-              <polygon points="22,13 25,11 25,28 22,28" fill="#059669"/>
-              <polygon points="25,11 28,13 28,28 25,28" fill="#047857"/>
-              <polygon points="22,13 25,11 28,13 25,15" fill="url(#anlG3)"/>
-              <!-- Trend line -->
-              <polyline points="5,20 10,16 16,10 22,14 28,8" stroke="#f0abfc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none" class="analytics-trend-line"/>
-              <circle cx="28" cy="8" r="1.8" fill="#e879f9" class="analytics-pulse-dot"/>
+              
+              <!-- Glow aura -->
+              <circle cx="16" cy="16" r="14" fill="url(#anlGlow)" class="anl-glow-halo"/>
+              
+              <!-- Isometric Bar 1 (Purple) -->
+              <g class="anl-iso-bar-1">
+                <polygon points="7,28 4,30 10,30 10,28" fill="url(#anlG1)"/>
+                <polygon points="4,14 7,12 7,28 4,28" fill="#6366f1"/>
+                <polygon points="7,12 10,14 10,28 7,28" fill="#4f46e5"/>
+                <polygon points="4,14 7,12 10,14 7,16" fill="url(#anlG1)"/>
+              </g>
+
+              <!-- Isometric Bar 2 (Cyan) -->
+              <g class="anl-iso-bar-2">
+                <polygon points="16,28 13,30 19,30 19,28" fill="url(#anlG2)"/>
+                <polygon points="13,8 16,6 16,28 13,28" fill="#0284c7"/>
+                <polygon points="16,6 19,8 19,28 16,28" fill="#0369a1"/>
+                <polygon points="13,8 16,6 19,8 16,10" fill="url(#anlG2)"/>
+              </g>
+
+              <!-- Isometric Bar 3 (Emerald) -->
+              <g class="anl-iso-bar-3">
+                <polygon points="25,28 22,30 28,30 28,28" fill="url(#anlG3)"/>
+                <polygon points="22,13 25,11 25,28 22,28" fill="#059669"/>
+                <polygon points="25,11 28,13 28,28 25,28" fill="#047857"/>
+                <polygon points="22,13 25,11 28,13 25,15" fill="url(#anlG3)"/>
+              </g>
+
+              <!-- Dynamic Trend Line -->
+              <polyline points="5,20 10,16 16,10 22,14 28,8" stroke="#f0abfc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" class="analytics-trend-line"/>
+              <circle cx="28" cy="8" r="2.2" fill="#e879f9" stroke="#ffffff" stroke-width="0.8" class="analytics-pulse-dot"/>
             </svg>
           </span>
           Analíticas
